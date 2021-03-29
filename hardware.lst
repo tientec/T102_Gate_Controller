@@ -1,0 +1,2507 @@
+
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\hardware.o:     file format elf32-littlearm
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\hardware.o
+
+Disassembly of section .text.Registers_Init:
+
+00000000 <Registers_Init>:
+Registers_Init():
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:86
+* Return         : None
+*******************************************************************************/
+void Registers_Init ( void )
+{
+	/*Clearing the system timers*/
+    Interval = 0;
+   0:	4a07      	ldr	r2, [pc, #28]	(20 <Registers_Init+0x20>)
+   2:	2300      	movs	r3, #0
+   4:	6013      	str	r3, [r2, #0]
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:87
+	System_Timers.Counters.Timer_1ms = 0;
+   6:	4a07      	ldr	r2, [pc, #28]	(24 <Registers_Init+0x24>)
+   8:	6013      	str	r3, [r2, #0]
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:88
+	System_Timers.Counters.Timer_10ms = 0;
+   a:	6053      	str	r3, [r2, #4]
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:89
+	System_Timers.Counters.Timer_100ms = 0;
+   c:	6093      	str	r3, [r2, #8]
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:90
+	System_Timers.Counters.Timer_1s = 0;
+   e:	60d3      	str	r3, [r2, #12]
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:91
+	System_Timers.Counters.Timer_1min = 0;
+  10:	6113      	str	r3, [r2, #16]
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:93
+
+    Controller_Variables.Controller_Vars.Test_Counter = 0;
+  12:	4a05      	ldr	r2, [pc, #20]	(28 <Registers_Init+0x28>)
+  14:	8493      	strh	r3, [r2, #36]
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:94
+    Controller_Variables.Controller_Vars.Motor_Encoder_Counter = ENCODER_OFFSET;
+  16:	f04f 0364 	mov.w	r3, #100	; 0x64
+  1a:	f8a2 3048 	strh.w	r3, [r2, #72]
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:96
+
+}
+  1e:	4770      	bx	lr
+	...
+Disassembly of section .text.Software_Delay:
+
+00000000 <Software_Delay>:
+Software_Delay():
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:732
+* Return         : None
+*******************************************************************************/
+void Software_Delay ( uint32_t Delay_var )
+{
+	static volatile uint32_t Software_Decreg;
+	Software_Decreg = Delay_var;
+   0:	4b04      	ldr	r3, [pc, #16]	(14 <Software_Delay+0x14>)
+   2:	6018      	str	r0, [r3, #0]
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:733
+	while(--Software_Decreg!=0);
+   4:	4b03      	ldr	r3, [pc, #12]	(14 <Software_Delay+0x14>)
+   6:	681a      	ldr	r2, [r3, #0]
+   8:	3a01      	subs	r2, #1
+   a:	601a      	str	r2, [r3, #0]
+   c:	681b      	ldr	r3, [r3, #0]
+   e:	2b00      	cmp	r3, #0
+  10:	d1f8      	bne.n	4 <Software_Delay+0x4>
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:734
+}
+  12:	4770      	bx	lr
+  14:	00000000 	.word	0x00000000
+Disassembly of section .text.Enter_LowPowerMode:
+
+00000000 <Enter_LowPowerMode>:
+Enter_LowPowerMode():
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:762
+* Return         : None.
+*******************************************************************************/
+void Enter_LowPowerMode(void)
+{
+  /* Set the device state to suspend */
+  bDeviceState = SUSPENDED;
+   0:	4b01      	ldr	r3, [pc, #4]	(8 <Enter_LowPowerMode+0x8>)
+   2:	2203      	movs	r2, #3
+   4:	601a      	str	r2, [r3, #0]
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:763
+}
+   6:	4770      	bx	lr
+   8:	00000000 	.word	0x00000000
+Disassembly of section .text.Leave_LowPowerMode:
+
+00000000 <Leave_LowPowerMode>:
+Leave_LowPowerMode():
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:777
+void Leave_LowPowerMode(void)
+{
+  DEVICE_INFO *pInfo = &Device_Info;
+  
+  /* Set the device state to the correct state */
+  if (pInfo->Current_Configuration != 0)
+   0:	4b04      	ldr	r3, [pc, #16]	(14 <Leave_LowPowerMode+0x14>)
+   2:	4a05      	ldr	r2, [pc, #20]	(18 <Leave_LowPowerMode+0x18>)
+   4:	7a9b      	ldrb	r3, [r3, #10]
+   6:	b10b      	cbz	r3, c <Leave_LowPowerMode+0xc>
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:780
+  {
+    /* Device configured */
+    bDeviceState = CONFIGURED;
+   8:	2305      	movs	r3, #5
+   a:	e000      	b.n	e <Leave_LowPowerMode+0xe>
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:784
+  }
+  else 
+  {
+    bDeviceState = ATTACHED;
+   c:	2301      	movs	r3, #1
+   e:	6013      	str	r3, [r2, #0]
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:786
+  }
+}
+  10:	4770      	bx	lr
+  12:	46c0      	nop			(mov r8, r8)
+	...
+Disassembly of section .text.Get_SerialNum:
+
+00000000 <Get_SerialNum>:
+Get_SerialNum():
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:799
+*******************************************************************************/
+void Get_SerialNum(void)
+{
+  u32 Device_Serial0, Device_Serial1, Device_Serial2;
+  
+  Device_Serial0 = *(u32*)(0x1FFFF7E8);
+   0:	4b12      	ldr	r3, [pc, #72]	(4c <Get_SerialNum+0x4c>)
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:796
+* Input          : None.
+* Output         : None.
+* Return         : None.
+*******************************************************************************/
+void Get_SerialNum(void)
+{
+   2:	b510      	push	{r4, lr}
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:799
+  u32 Device_Serial0, Device_Serial1, Device_Serial2;
+  
+  Device_Serial0 = *(u32*)(0x1FFFF7E8);
+   4:	6819      	ldr	r1, [r3, #0]
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:800
+  Device_Serial1 = *(u32*)(0x1FFFF7EC);
+   6:	3304      	adds	r3, #4
+   8:	6818      	ldr	r0, [r3, #0]
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:801
+  Device_Serial2 = *(u32*)(0x1FFFF7F0);
+   a:	3304      	adds	r3, #4
+   c:	681c      	ldr	r4, [r3, #0]
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:803
+  
+  if(Device_Serial0 != 0)
+   e:	b1d9      	cbz	r1, 48 <Get_SerialNum+0x48>
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:805
+  {
+     CustomHID_StringSerial[2] = (u8)(Device_Serial0 & 0x000000FF);  
+  10:	4a0f      	ldr	r2, [pc, #60]	(50 <Get_SerialNum+0x50>)
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:806
+     CustomHID_StringSerial[4] = (u8)((Device_Serial0 & 0x0000FF00) >> 8);
+  12:	f3c1 2307 	ubfx	r3, r1, #8, #8
+  16:	7113      	strb	r3, [r2, #4]
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:807
+     CustomHID_StringSerial[6] = (u8)((Device_Serial0 & 0x00FF0000) >> 16);
+  18:	f3c1 4307 	ubfx	r3, r1, #16, #8
+  1c:	7193      	strb	r3, [r2, #6]
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:808
+     CustomHID_StringSerial[8] = (u8)((Device_Serial0 & 0xFF000000) >> 24);  
+  1e:	0e0b      	lsrs	r3, r1, #24
+  20:	7213      	strb	r3, [r2, #8]
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:811
+     
+     CustomHID_StringSerial[10] = (u8)(Device_Serial1 & 0x000000FF);  
+     CustomHID_StringSerial[12] = (u8)((Device_Serial1 & 0x0000FF00) >> 8);
+  22:	f3c0 2307 	ubfx	r3, r0, #8, #8
+  26:	7313      	strb	r3, [r2, #12]
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:812
+     CustomHID_StringSerial[14] = (u8)((Device_Serial1 & 0x00FF0000) >> 16);
+  28:	f3c0 4307 	ubfx	r3, r0, #16, #8
+  2c:	7393      	strb	r3, [r2, #14]
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:813
+     CustomHID_StringSerial[16] = (u8)((Device_Serial1 & 0xFF000000) >> 24); 
+  2e:	0e03      	lsrs	r3, r0, #24
+  30:	7413      	strb	r3, [r2, #16]
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:816
+     
+     CustomHID_StringSerial[18] = (u8)(Device_Serial2 & 0x000000FF);  
+     CustomHID_StringSerial[20] = (u8)((Device_Serial2 & 0x0000FF00) >> 8);
+  32:	f3c4 2307 	ubfx	r3, r4, #8, #8
+  36:	7513      	strb	r3, [r2, #20]
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:817
+     CustomHID_StringSerial[22] = (u8)((Device_Serial2 & 0x00FF0000) >> 16);
+  38:	f3c4 4307 	ubfx	r3, r4, #16, #8
+  3c:	7593      	strb	r3, [r2, #22]
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:818
+     CustomHID_StringSerial[24] = (u8)((Device_Serial2 & 0xFF000000) >> 24); 
+  3e:	0e23      	lsrs	r3, r4, #24
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:805
+  Device_Serial1 = *(u32*)(0x1FFFF7EC);
+  Device_Serial2 = *(u32*)(0x1FFFF7F0);
+  
+  if(Device_Serial0 != 0)
+  {
+     CustomHID_StringSerial[2] = (u8)(Device_Serial0 & 0x000000FF);  
+  40:	7091      	strb	r1, [r2, #2]
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:810
+     CustomHID_StringSerial[4] = (u8)((Device_Serial0 & 0x0000FF00) >> 8);
+     CustomHID_StringSerial[6] = (u8)((Device_Serial0 & 0x00FF0000) >> 16);
+     CustomHID_StringSerial[8] = (u8)((Device_Serial0 & 0xFF000000) >> 24);  
+     
+     CustomHID_StringSerial[10] = (u8)(Device_Serial1 & 0x000000FF);  
+  42:	7290      	strb	r0, [r2, #10]
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:815
+     CustomHID_StringSerial[12] = (u8)((Device_Serial1 & 0x0000FF00) >> 8);
+     CustomHID_StringSerial[14] = (u8)((Device_Serial1 & 0x00FF0000) >> 16);
+     CustomHID_StringSerial[16] = (u8)((Device_Serial1 & 0xFF000000) >> 24); 
+     
+     CustomHID_StringSerial[18] = (u8)(Device_Serial2 & 0x000000FF);  
+  44:	7494      	strb	r4, [r2, #18]
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:818
+     CustomHID_StringSerial[20] = (u8)((Device_Serial2 & 0x0000FF00) >> 8);
+     CustomHID_StringSerial[22] = (u8)((Device_Serial2 & 0x00FF0000) >> 16);
+     CustomHID_StringSerial[24] = (u8)((Device_Serial2 & 0xFF000000) >> 24); 
+  46:	7613      	strb	r3, [r2, #24]
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:820
+  }   
+}
+  48:	bd10      	pop	{r4, pc}
+  4a:	46c0      	nop			(mov r8, r8)
+  4c:	1ffff7e8 	.word	0x1ffff7e8
+  50:	00000000 	.word	0x00000000
+Disassembly of section .text.UART_Send:
+
+00000000 <UART_Send>:
+UART_Send():
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:824
+
+void UART_Send ( uint8_t * Buffer, uint8_t Packet_Length )
+{
+  RECEIVER_DISABLED = TRUE;
+   0:	4b1a      	ldr	r3, [pc, #104]	(6c <UART_Send+0x6c>)
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:823
+     CustomHID_StringSerial[24] = (u8)((Device_Serial2 & 0xFF000000) >> 24); 
+  }   
+}
+
+void UART_Send ( uint8_t * Buffer, uint8_t Packet_Length )
+{
+   2:	e92d 41f0 	stmdb	sp!, {r4, r5, r6, r7, r8, lr}
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:824
+  RECEIVER_DISABLED = TRUE;
+   6:	2501      	movs	r5, #1
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:827
+  GPIO_SetBits ( RS485_DIR_PORT, RS485_DIR_PIN );
+
+  DMA_DeInit(DMA1_Channel4);
+   8:	4c19      	ldr	r4, [pc, #100]	(70 <UART_Send+0x70>)
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:824
+  }   
+}
+
+void UART_Send ( uint8_t * Buffer, uint8_t Packet_Length )
+{
+  RECEIVER_DISABLED = TRUE;
+   a:	701d      	strb	r5, [r3, #0]
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:823
+     CustomHID_StringSerial[24] = (u8)((Device_Serial2 & 0xFF000000) >> 24); 
+  }   
+}
+
+void UART_Send ( uint8_t * Buffer, uint8_t Packet_Length )
+{
+   c:	4606      	mov	r6, r0
+   e:	4688      	mov	r8, r1
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:825
+  RECEIVER_DISABLED = TRUE;
+  GPIO_SetBits ( RS485_DIR_PORT, RS485_DIR_PIN );
+  10:	4818      	ldr	r0, [pc, #96]	(74 <UART_Send+0x74>)
+  12:	2104      	movs	r1, #4
+  14:	f7ff fffe 	bl	0 <GPIO_SetBits>
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:827
+
+  DMA_DeInit(DMA1_Channel4);
+  18:	4620      	mov	r0, r4
+  1a:	f7ff fffe 	bl	0 <DMA_DeInit>
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:828
+  DMA_InitStructure.DMA_PeripheralBaseAddr = USART1_DR_Base;
+  1e:	4916      	ldr	r1, [pc, #88]	(78 <UART_Send+0x78>)
+  20:	4b16      	ldr	r3, [pc, #88]	(7c <UART_Send+0x7c>)
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:832
+  DMA_InitStructure.DMA_MemoryBaseAddr = (u32)Buffer;
+  DMA_InitStructure.DMA_DIR = DMA_DIR_PeripheralDST;
+  DMA_InitStructure.DMA_BufferSize = Packet_Length;
+  DMA_InitStructure.DMA_PeripheralInc = DMA_PeripheralInc_Disable;
+  22:	2200      	movs	r2, #0
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:828
+{
+  RECEIVER_DISABLED = TRUE;
+  GPIO_SetBits ( RS485_DIR_PORT, RS485_DIR_PIN );
+
+  DMA_DeInit(DMA1_Channel4);
+  DMA_InitStructure.DMA_PeripheralBaseAddr = USART1_DR_Base;
+  24:	600b      	str	r3, [r1, #0]
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:830
+  DMA_InitStructure.DMA_MemoryBaseAddr = (u32)Buffer;
+  DMA_InitStructure.DMA_DIR = DMA_DIR_PeripheralDST;
+  26:	2310      	movs	r3, #16
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:829
+  RECEIVER_DISABLED = TRUE;
+  GPIO_SetBits ( RS485_DIR_PORT, RS485_DIR_PIN );
+
+  DMA_DeInit(DMA1_Channel4);
+  DMA_InitStructure.DMA_PeripheralBaseAddr = USART1_DR_Base;
+  DMA_InitStructure.DMA_MemoryBaseAddr = (u32)Buffer;
+  28:	604e      	str	r6, [r1, #4]
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:830
+  DMA_InitStructure.DMA_DIR = DMA_DIR_PeripheralDST;
+  2a:	608b      	str	r3, [r1, #8]
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:833
+  DMA_InitStructure.DMA_BufferSize = Packet_Length;
+  DMA_InitStructure.DMA_PeripheralInc = DMA_PeripheralInc_Disable;
+  DMA_InitStructure.DMA_MemoryInc = DMA_MemoryInc_Enable;
+  2c:	2680      	movs	r6, #128
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:837
+  DMA_InitStructure.DMA_PeripheralDataSize = DMA_PeripheralDataSize_Byte;
+  DMA_InitStructure.DMA_MemoryDataSize = DMA_MemoryDataSize_Byte;
+  DMA_InitStructure.DMA_Mode = DMA_Mode_Normal;
+  DMA_InitStructure.DMA_Priority = DMA_Priority_VeryHigh;
+  2e:	f44f 5340 	mov.w	r3, #12288	; 0x3000
+  32:	624b      	str	r3, [r1, #36]
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:831
+
+  DMA_DeInit(DMA1_Channel4);
+  DMA_InitStructure.DMA_PeripheralBaseAddr = USART1_DR_Base;
+  DMA_InitStructure.DMA_MemoryBaseAddr = (u32)Buffer;
+  DMA_InitStructure.DMA_DIR = DMA_DIR_PeripheralDST;
+  DMA_InitStructure.DMA_BufferSize = Packet_Length;
+  34:	f8c1 800c 	str.w	r8, [r1, #12]
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:832
+  DMA_InitStructure.DMA_PeripheralInc = DMA_PeripheralInc_Disable;
+  38:	610a      	str	r2, [r1, #16]
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:833
+  DMA_InitStructure.DMA_MemoryInc = DMA_MemoryInc_Enable;
+  3a:	614e      	str	r6, [r1, #20]
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:834
+  DMA_InitStructure.DMA_PeripheralDataSize = DMA_PeripheralDataSize_Byte;
+  3c:	618a      	str	r2, [r1, #24]
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:835
+  DMA_InitStructure.DMA_MemoryDataSize = DMA_MemoryDataSize_Byte;
+  3e:	61ca      	str	r2, [r1, #28]
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:836
+  DMA_InitStructure.DMA_Mode = DMA_Mode_Normal;
+  40:	620a      	str	r2, [r1, #32]
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:838
+  DMA_InitStructure.DMA_Priority = DMA_Priority_VeryHigh;
+  DMA_InitStructure.DMA_M2M = DMA_M2M_Disable;
+  42:	628a      	str	r2, [r1, #40]
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:839
+  DMA_Init(DMA1_Channel4, &DMA_InitStructure);
+  44:	4620      	mov	r0, r4
+  46:	f7ff fffe 	bl	0 <DMA_Init>
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:841
+
+  DMA_ITConfig (DMA1_Channel4, DMA_IT_TC, ENABLE );
+  4a:	4620      	mov	r0, r4
+  4c:	2102      	movs	r1, #2
+  4e:	462a      	mov	r2, r5
+  50:	f7ff fffe 	bl	0 <DMA_ITConfig>
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:843
+        
+  USART_DMACmd(USART1, USART_DMAReq_Tx, ENABLE);
+  54:	4631      	mov	r1, r6
+  56:	480a      	ldr	r0, [pc, #40]	(80 <UART_Send+0x80>)
+  58:	462a      	mov	r2, r5
+  5a:	f7ff fffe 	bl	0 <USART_DMACmd>
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:844
+  DMA_Cmd(DMA1_Channel4, ENABLE);
+  5e:	4620      	mov	r0, r4
+  60:	4629      	mov	r1, r5
+  62:	f7ff fffe 	bl	0 <DMA_Cmd>
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:846
+
+}
+  66:	e8bd 81f0 	ldmia.w	sp!, {r4, r5, r6, r7, r8, pc}
+  6a:	46c0      	nop			(mov r8, r8)
+  6c:	00000000 	.word	0x00000000
+  70:	40020044 	.word	0x40020044
+  74:	40011400 	.word	0x40011400
+  78:	00000000 	.word	0x00000000
+  7c:	40013804 	.word	0x40013804
+  80:	40013800 	.word	0x40013800
+Disassembly of section .text.DMA_Configuration:
+
+00000000 <DMA_Configuration>:
+DMA_Configuration():
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:588
+* Input          : None
+* Output         : None
+* Return         : None
+*******************************************************************************/
+void DMA_Configuration(void)
+{
+   0:	b510      	push	{r4, lr}
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:589
+  DMA_DeInit(DMA1_Channel1);
+   2:	4c12      	ldr	r4, [pc, #72]	(4c <DMA_Configuration+0x4c>)
+   4:	4620      	mov	r0, r4
+   6:	f7ff fffe 	bl	0 <DMA_DeInit>
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:590
+  DMA_InitStructure.DMA_PeripheralBaseAddr = (u32)ADC1_DR_Address;
+   a:	4911      	ldr	r1, [pc, #68]	(50 <DMA_Configuration+0x50>)
+   c:	4b11      	ldr	r3, [pc, #68]	(54 <DMA_Configuration+0x54>)
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:592
+  DMA_InitStructure.DMA_MemoryBaseAddr = (u32)ADC_ConvertedValueTab;
+  DMA_InitStructure.DMA_DIR = DMA_DIR_PeripheralSRC;
+   e:	2200      	movs	r2, #0
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:590
+* Return         : None
+*******************************************************************************/
+void DMA_Configuration(void)
+{
+  DMA_DeInit(DMA1_Channel1);
+  DMA_InitStructure.DMA_PeripheralBaseAddr = (u32)ADC1_DR_Address;
+  10:	600b      	str	r3, [r1, #0]
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:591
+  DMA_InitStructure.DMA_MemoryBaseAddr = (u32)ADC_ConvertedValueTab;
+  12:	4b11      	ldr	r3, [pc, #68]	(58 <DMA_Configuration+0x58>)
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:592
+  DMA_InitStructure.DMA_DIR = DMA_DIR_PeripheralSRC;
+  14:	608a      	str	r2, [r1, #8]
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:591
+*******************************************************************************/
+void DMA_Configuration(void)
+{
+  DMA_DeInit(DMA1_Channel1);
+  DMA_InitStructure.DMA_PeripheralBaseAddr = (u32)ADC1_DR_Address;
+  DMA_InitStructure.DMA_MemoryBaseAddr = (u32)ADC_ConvertedValueTab;
+  16:	604b      	str	r3, [r1, #4]
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:593
+  DMA_InitStructure.DMA_DIR = DMA_DIR_PeripheralSRC;
+  DMA_InitStructure.DMA_BufferSize = 7;
+  18:	2307      	movs	r3, #7
+  1a:	60cb      	str	r3, [r1, #12]
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:595
+  DMA_InitStructure.DMA_PeripheralInc = DMA_PeripheralInc_Disable;
+  DMA_InitStructure.DMA_MemoryInc = DMA_MemoryInc_Enable;
+  1c:	3379      	adds	r3, #121
+  1e:	614b      	str	r3, [r1, #20]
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:596
+  DMA_InitStructure.DMA_PeripheralDataSize = DMA_PeripheralDataSize_HalfWord;
+  20:	3380      	adds	r3, #128
+  22:	618b      	str	r3, [r1, #24]
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:597
+  DMA_InitStructure.DMA_MemoryDataSize = DMA_MemoryDataSize_HalfWord;
+  24:	f503 7340 	add.w	r3, r3, #768	; 0x300
+  28:	61cb      	str	r3, [r1, #28]
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:598
+  DMA_InitStructure.DMA_Mode = DMA_Mode_Circular;
+  2a:	f5a3 7378 	sub.w	r3, r3, #992	; 0x3e0
+  2e:	620b      	str	r3, [r1, #32]
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:599
+  DMA_InitStructure.DMA_Priority = DMA_Priority_High;
+  30:	f503 53ff 	add.w	r3, r3, #8160	; 0x1fe0
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:594
+  DMA_DeInit(DMA1_Channel1);
+  DMA_InitStructure.DMA_PeripheralBaseAddr = (u32)ADC1_DR_Address;
+  DMA_InitStructure.DMA_MemoryBaseAddr = (u32)ADC_ConvertedValueTab;
+  DMA_InitStructure.DMA_DIR = DMA_DIR_PeripheralSRC;
+  DMA_InitStructure.DMA_BufferSize = 7;
+  DMA_InitStructure.DMA_PeripheralInc = DMA_PeripheralInc_Disable;
+  34:	610a      	str	r2, [r1, #16]
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:599
+  DMA_InitStructure.DMA_MemoryInc = DMA_MemoryInc_Enable;
+  DMA_InitStructure.DMA_PeripheralDataSize = DMA_PeripheralDataSize_HalfWord;
+  DMA_InitStructure.DMA_MemoryDataSize = DMA_MemoryDataSize_HalfWord;
+  DMA_InitStructure.DMA_Mode = DMA_Mode_Circular;
+  DMA_InitStructure.DMA_Priority = DMA_Priority_High;
+  36:	624b      	str	r3, [r1, #36]
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:600
+  DMA_InitStructure.DMA_M2M = DMA_M2M_Disable;
+  38:	628a      	str	r2, [r1, #40]
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:601
+  DMA_Init(DMA1_Channel1, &DMA_InitStructure);
+  3a:	4620      	mov	r0, r4
+  3c:	f7ff fffe 	bl	0 <DMA_Init>
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:602
+  DMA_Cmd(DMA1_Channel1, ENABLE);
+  40:	4620      	mov	r0, r4
+  42:	2101      	movs	r1, #1
+  44:	f7ff fffe 	bl	0 <DMA_Cmd>
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:603
+}
+  48:	bd10      	pop	{r4, pc}
+  4a:	46c0      	nop			(mov r8, r8)
+  4c:	40020008 	.word	0x40020008
+  50:	00000000 	.word	0x00000000
+  54:	4001244c 	.word	0x4001244c
+  58:	00000000 	.word	0x00000000
+Disassembly of section .text.Set_USBClock:
+
+00000000 <Set_USBClock>:
+Set_USBClock():
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:746
+* Return         : None.
+*******************************************************************************/
+void Set_USBClock(void)
+{
+  /* Select USBCLK source */
+  RCC_USBCLKConfig(RCC_USBCLKSource_PLLCLK_1Div5);
+   0:	2000      	movs	r0, #0
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:744
+* Input          : None.
+* Output         : None.
+* Return         : None.
+*******************************************************************************/
+void Set_USBClock(void)
+{
+   2:	b510      	push	{r4, lr}
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:746
+  /* Select USBCLK source */
+  RCC_USBCLKConfig(RCC_USBCLKSource_PLLCLK_1Div5);
+   4:	f7ff fffe 	bl	0 <RCC_USBCLKConfig>
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:749
+
+  /* Enable USB clock */
+  RCC_APB1PeriphClockCmd(RCC_APB1Periph_USB, ENABLE);
+   8:	f44f 0000 	mov.w	r0, #8388608	; 0x800000
+   c:	2101      	movs	r1, #1
+   e:	f7ff fffe 	bl	0 <RCC_APB1PeriphClockCmd>
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:750
+}
+  12:	bd10      	pop	{r4, pc}
+Disassembly of section .text.EXTI_Configuration:
+
+00000000 <EXTI_Configuration>:
+EXTI_Configuration():
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:709
+* Input          : None
+* Output         : None
+* Return         : None
+*******************************************************************************/
+void EXTI_Configuration ( void )
+{
+   0:	b510      	push	{r4, lr}
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:711
+
+    GPIO_EXTILineConfig(GPIO_PortSourceGPIOA, GPIO_PinSource14);
+   2:	2000      	movs	r0, #0
+   4:	210e      	movs	r1, #14
+   6:	f7ff fffe 	bl	0 <GPIO_EXTILineConfig>
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:713
+
+    EXTI_InitStructure.EXTI_Line = EXTI_Line14;
+   a:	4808      	ldr	r0, [pc, #32]	(2c <EXTI_Configuration+0x2c>)
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:714
+    EXTI_InitStructure.EXTI_Mode = EXTI_Mode_Interrupt;
+   c:	2300      	movs	r3, #0
+   e:	7103      	strb	r3, [r0, #4]
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:715
+    EXTI_InitStructure.EXTI_Trigger = EXTI_Trigger_Rising_Falling;
+  10:	3310      	adds	r3, #16
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:713
+void EXTI_Configuration ( void )
+{
+
+    GPIO_EXTILineConfig(GPIO_PortSourceGPIOA, GPIO_PinSource14);
+
+    EXTI_InitStructure.EXTI_Line = EXTI_Line14;
+  12:	f44f 4480 	mov.w	r4, #16384	; 0x4000
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:715
+    EXTI_InitStructure.EXTI_Mode = EXTI_Mode_Interrupt;
+    EXTI_InitStructure.EXTI_Trigger = EXTI_Trigger_Rising_Falling;
+  16:	7143      	strb	r3, [r0, #5]
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:716
+    EXTI_InitStructure.EXTI_LineCmd = ENABLE;
+  18:	2301      	movs	r3, #1
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:713
+void EXTI_Configuration ( void )
+{
+
+    GPIO_EXTILineConfig(GPIO_PortSourceGPIOA, GPIO_PinSource14);
+
+    EXTI_InitStructure.EXTI_Line = EXTI_Line14;
+  1a:	6004      	str	r4, [r0, #0]
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:716
+    EXTI_InitStructure.EXTI_Mode = EXTI_Mode_Interrupt;
+    EXTI_InitStructure.EXTI_Trigger = EXTI_Trigger_Rising_Falling;
+    EXTI_InitStructure.EXTI_LineCmd = ENABLE;
+  1c:	7183      	strb	r3, [r0, #6]
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:717
+    EXTI_Init(&EXTI_InitStructure);
+  1e:	f7ff fffe 	bl	0 <EXTI_Init>
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:719
+
+    EXTI_GenerateSWInterrupt(EXTI_Line14);
+  22:	4620      	mov	r0, r4
+  24:	f7ff fffe 	bl	0 <EXTI_GenerateSWInterrupt>
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:721
+
+}
+  28:	bd10      	pop	{r4, pc}
+  2a:	46c0      	nop			(mov r8, r8)
+  2c:	00000000 	.word	0x00000000
+Disassembly of section .text.FLASH_Init:
+
+00000000 <FLASH_Init>:
+FLASH_Init():
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:691
+* Input          : None
+* Output         : None
+* Return         : None
+*******************************************************************************/
+void FLASH_Init( void )
+{
+   0:	b510      	push	{r4, lr}
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:693
+  /* Unlock the Flash Program Erase controller */
+  FLASH_Unlock();
+   2:	f7ff fffe 	bl	0 <FLASH_Unlock>
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:696
+
+  /* Clear All pending flags */
+  FLASH_ClearFlag(FLASH_FLAG_BSY | FLASH_FLAG_EOP | FLASH_FLAG_PGERR | FLASH_FLAG_WRPRTERR);	
+   6:	2035      	movs	r0, #53
+   8:	f7ff fffe 	bl	0 <FLASH_ClearFlag>
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:698
+
+}
+   c:	bd10      	pop	{r4, pc}
+   e:	46c0      	nop			(mov r8, r8)
+Disassembly of section .text.WWDT_Handler:
+
+00000000 <WWDT_Handler>:
+WWDT_Handler():
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:677
+* Input          : None
+* Output         : None
+* Return         : None
+*******************************************************************************/
+void WWDT_Handler( void )
+{
+   0:	b510      	push	{r4, lr}
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:678
+    WWDG_SetCounter(0x7e);
+   2:	207e      	movs	r0, #126
+   4:	f7ff fffe 	bl	0 <WWDG_SetCounter>
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:679
+    IWDG_ReloadCounter();
+   8:	f7ff fffe 	bl	0 <IWDG_ReloadCounter>
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:681
+
+}
+   c:	bd10      	pop	{r4, pc}
+   e:	46c0      	nop			(mov r8, r8)
+Disassembly of section .text.WWDT_Init:
+
+00000000 <WWDT_Init>:
+WWDT_Init():
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:657
+* Input          : None
+* Output         : None
+* Return         : None
+*******************************************************************************/
+void WWDT_Init( void )
+{
+   0:	b510      	push	{r4, lr}
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:658
+    WWDG_SetPrescaler(WWDG_Prescaler_8);
+   2:	f44f 70c0 	mov.w	r0, #384	; 0x180
+   6:	f7ff fffe 	bl	0 <WWDG_SetPrescaler>
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:659
+    WWDG_SetWindowValue(127);
+   a:	207f      	movs	r0, #127
+   c:	f7ff fffe 	bl	0 <WWDG_SetWindowValue>
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:660
+    WWDG_Enable(127);
+  10:	207f      	movs	r0, #127
+  12:	f7ff fffe 	bl	0 <WWDG_Enable>
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:662
+
+    IWDG_WriteAccessCmd ( IWDG_WriteAccess_Enable );
+  16:	f245 5055 	movw	r0, #21845	; 0x5555
+  1a:	f7ff fffe 	bl	0 <IWDG_WriteAccessCmd>
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:663
+    IWDG_SetPrescaler ( IWDG_Prescaler_128 );
+  1e:	2005      	movs	r0, #5
+  20:	f7ff fffe 	bl	0 <IWDG_SetPrescaler>
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:664
+    IWDG_SetReload ( 0x400 );
+  24:	f44f 6080 	mov.w	r0, #1024	; 0x400
+  28:	f7ff fffe 	bl	0 <IWDG_SetReload>
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:665
+    IWDG_ReloadCounter();
+  2c:	f7ff fffe 	bl	0 <IWDG_ReloadCounter>
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:666
+    IWDG_Enable();
+  30:	f7ff fffe 	bl	0 <IWDG_Enable>
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:667
+}
+  34:	bd10      	pop	{r4, pc}
+  36:	46c0      	nop			(mov r8, r8)
+Disassembly of section .text.USART_Configuration:
+
+00000000 <USART_Configuration>:
+USART_Configuration():
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:614
+* Output         : None
+* Return         : None
+*******************************************************************************/
+void USART_Configuration(void)
+{  
+  USART_InitStructure.USART_BaudRate = 115200;
+   0:	490e      	ldr	r1, [pc, #56]	(3c <USART_Configuration+0x3c>)
+   2:	f44f 33e1 	mov.w	r3, #115200	; 0x1c200
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:613
+* Input          : None
+* Output         : None
+* Return         : None
+*******************************************************************************/
+void USART_Configuration(void)
+{  
+   6:	b510      	push	{r4, lr}
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:614
+  USART_InitStructure.USART_BaudRate = 115200;
+   8:	600b      	str	r3, [r1, #0]
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:620
+  USART_InitStructure.USART_WordLength = USART_WordLength_8b;
+  USART_InitStructure.USART_StopBits = USART_StopBits_1;
+  USART_InitStructure.USART_Parity = USART_Parity_No;
+  USART_InitStructure.USART_HardwareFlowControl = USART_HardwareFlowControl_None;
+  USART_InitStructure.USART_Mode = USART_Mode_Rx | USART_Mode_Tx;
+  USART_Init(USART1, &USART_InitStructure);
+   a:	4c0d      	ldr	r4, [pc, #52]	(40 <USART_Configuration+0x40>)
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:615
+* Return         : None
+*******************************************************************************/
+void USART_Configuration(void)
+{  
+  USART_InitStructure.USART_BaudRate = 115200;
+  USART_InitStructure.USART_WordLength = USART_WordLength_8b;
+   c:	f5a3 33e1 	sub.w	r3, r3, #115200	; 0x1c200
+  10:	808b      	strh	r3, [r1, #4]
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:616
+  USART_InitStructure.USART_StopBits = USART_StopBits_1;
+  12:	80cb      	strh	r3, [r1, #6]
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:617
+  USART_InitStructure.USART_Parity = USART_Parity_No;
+  14:	810b      	strh	r3, [r1, #8]
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:618
+  USART_InitStructure.USART_HardwareFlowControl = USART_HardwareFlowControl_None;
+  16:	818b      	strh	r3, [r1, #12]
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:619
+  USART_InitStructure.USART_Mode = USART_Mode_Rx | USART_Mode_Tx;
+  18:	f04f 030c 	mov.w	r3, #12	; 0xc
+  1c:	814b      	strh	r3, [r1, #10]
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:620
+  USART_Init(USART1, &USART_InitStructure);
+  1e:	4620      	mov	r0, r4
+  20:	f7ff fffe 	bl	0 <USART_Init>
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:622
+
+  USART_ITConfig(USART1, USART_IT_RXNE, ENABLE);
+  24:	4620      	mov	r0, r4
+  26:	f240 5125 	movw	r1, #1317	; 0x525
+  2a:	2201      	movs	r2, #1
+  2c:	f7ff fffe 	bl	0 <USART_ITConfig>
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:624
+
+  USART_Cmd(USART1, ENABLE);  
+  30:	4620      	mov	r0, r4
+  32:	2101      	movs	r1, #1
+  34:	f7ff fffe 	bl	0 <USART_Cmd>
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:625
+}
+  38:	bd10      	pop	{r4, pc}
+  3a:	46c0      	nop			(mov r8, r8)
+  3c:	00000000 	.word	0x00000000
+  40:	40013800 	.word	0x40013800
+Disassembly of section .text.Adc_Configuration:
+
+00000000 <Adc_Configuration>:
+Adc_Configuration():
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:551
+* Output         : None
+* Return         : None
+*******************************************************************************/
+void Adc_Configuration ( void )
+{
+  ADC_InitStructure.ADC_Mode = ADC_Mode_Independent;
+   0:	492d      	ldr	r1, [pc, #180]	(b8 <Adc_Configuration+0xb8>)
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:550
+* Input          : None
+* Output         : None
+* Return         : None
+*******************************************************************************/
+void Adc_Configuration ( void )
+{
+   2:	b570      	push	{r4, r5, r6, lr}
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:554
+  ADC_InitStructure.ADC_Mode = ADC_Mode_Independent;
+  ADC_InitStructure.ADC_ScanConvMode = ENABLE;
+  ADC_InitStructure.ADC_ContinuousConvMode = ENABLE;
+  ADC_InitStructure.ADC_ExternalTrigConv = ADC_ExternalTrigConv_None;
+   4:	f44f 2360 	mov.w	r3, #917504	; 0xe0000
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:556
+  ADC_InitStructure.ADC_DataAlign = ADC_DataAlign_Right;
+  ADC_InitStructure.ADC_NbrOfChannel = 7;
+   8:	2407      	movs	r4, #7
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:552
+* Return         : None
+*******************************************************************************/
+void Adc_Configuration ( void )
+{
+  ADC_InitStructure.ADC_Mode = ADC_Mode_Independent;
+  ADC_InitStructure.ADC_ScanConvMode = ENABLE;
+   a:	2601      	movs	r6, #1
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:551
+* Output         : None
+* Return         : None
+*******************************************************************************/
+void Adc_Configuration ( void )
+{
+  ADC_InitStructure.ADC_Mode = ADC_Mode_Independent;
+   c:	2500      	movs	r5, #0
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:554
+  ADC_InitStructure.ADC_ScanConvMode = ENABLE;
+  ADC_InitStructure.ADC_ContinuousConvMode = ENABLE;
+  ADC_InitStructure.ADC_ExternalTrigConv = ADC_ExternalTrigConv_None;
+   e:	608b      	str	r3, [r1, #8]
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:551
+* Output         : None
+* Return         : None
+*******************************************************************************/
+void Adc_Configuration ( void )
+{
+  ADC_InitStructure.ADC_Mode = ADC_Mode_Independent;
+  10:	600d      	str	r5, [r1, #0]
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:552
+  ADC_InitStructure.ADC_ScanConvMode = ENABLE;
+  12:	710e      	strb	r6, [r1, #4]
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:553
+  ADC_InitStructure.ADC_ContinuousConvMode = ENABLE;
+  14:	714e      	strb	r6, [r1, #5]
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:555
+  ADC_InitStructure.ADC_ExternalTrigConv = ADC_ExternalTrigConv_None;
+  ADC_InitStructure.ADC_DataAlign = ADC_DataAlign_Right;
+  16:	60cd      	str	r5, [r1, #12]
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:556
+  ADC_InitStructure.ADC_NbrOfChannel = 7;
+  18:	740c      	strb	r4, [r1, #16]
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:557
+  ADC_Init(ADC1, &ADC_InitStructure);
+  1a:	4828      	ldr	r0, [pc, #160]	(bc <Adc_Configuration+0xbc>)
+  1c:	f7ff fffe 	bl	0 <ADC_Init>
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:558
+  ADC_TempSensorVrefintCmd(ENABLE);
+  20:	4630      	mov	r0, r6
+  22:	f7ff fffe 	bl	0 <ADC_TempSensorVrefintCmd>
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:560
+
+  ADC_RegularChannelConfig(ADC1, ADC_Channel_0, 1, ADC_SampleTime_239Cycles5);    
+  26:	4825      	ldr	r0, [pc, #148]	(bc <Adc_Configuration+0xbc>)
+  28:	4629      	mov	r1, r5
+  2a:	4632      	mov	r2, r6
+  2c:	4623      	mov	r3, r4
+  2e:	f7ff fffe 	bl	0 <ADC_RegularChannelConfig>
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:561
+  ADC_RegularChannelConfig(ADC1, ADC_Channel_1, 2, ADC_SampleTime_239Cycles5);    
+  32:	4822      	ldr	r0, [pc, #136]	(bc <Adc_Configuration+0xbc>)
+  34:	4631      	mov	r1, r6
+  36:	2202      	movs	r2, #2
+  38:	4623      	mov	r3, r4
+  3a:	f7ff fffe 	bl	0 <ADC_RegularChannelConfig>
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:562
+  ADC_RegularChannelConfig(ADC1, ADC_Channel_8, 3, ADC_SampleTime_239Cycles5);    
+  3e:	481f      	ldr	r0, [pc, #124]	(bc <Adc_Configuration+0xbc>)
+  40:	2108      	movs	r1, #8
+  42:	2203      	movs	r2, #3
+  44:	4623      	mov	r3, r4
+  46:	f7ff fffe 	bl	0 <ADC_RegularChannelConfig>
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:563
+  ADC_RegularChannelConfig(ADC1, ADC_Channel_9, 4, ADC_SampleTime_239Cycles5);
+  4a:	481c      	ldr	r0, [pc, #112]	(bc <Adc_Configuration+0xbc>)
+  4c:	2109      	movs	r1, #9
+  4e:	2204      	movs	r2, #4
+  50:	4623      	mov	r3, r4
+  52:	f7ff fffe 	bl	0 <ADC_RegularChannelConfig>
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:564
+  ADC_RegularChannelConfig(ADC1, ADC_Channel_14,5, ADC_SampleTime_239Cycles5);
+  56:	4819      	ldr	r0, [pc, #100]	(bc <Adc_Configuration+0xbc>)
+  58:	210e      	movs	r1, #14
+  5a:	2205      	movs	r2, #5
+  5c:	4623      	mov	r3, r4
+  5e:	f7ff fffe 	bl	0 <ADC_RegularChannelConfig>
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:565
+  ADC_RegularChannelConfig(ADC1, ADC_Channel_15,6, ADC_SampleTime_239Cycles5);
+  62:	4816      	ldr	r0, [pc, #88]	(bc <Adc_Configuration+0xbc>)
+  64:	210f      	movs	r1, #15
+  66:	2206      	movs	r2, #6
+  68:	4623      	mov	r3, r4
+  6a:	f7ff fffe 	bl	0 <ADC_RegularChannelConfig>
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:566
+  ADC_RegularChannelConfig(ADC1, ADC_Channel_16,7, ADC_SampleTime_239Cycles5);
+  6e:	4622      	mov	r2, r4
+  70:	4623      	mov	r3, r4
+  72:	4812      	ldr	r0, [pc, #72]	(bc <Adc_Configuration+0xbc>)
+  74:	2110      	movs	r1, #16
+  76:	f7ff fffe 	bl	0 <ADC_RegularChannelConfig>
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:567
+  ADC_Cmd(ADC1, ENABLE);
+  7a:	4810      	ldr	r0, [pc, #64]	(bc <Adc_Configuration+0xbc>)
+  7c:	4631      	mov	r1, r6
+  7e:	f7ff fffe 	bl	0 <ADC_Cmd>
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:569
+
+  ADC_DMACmd(ADC1, ENABLE);
+  82:	480e      	ldr	r0, [pc, #56]	(bc <Adc_Configuration+0xbc>)
+  84:	4631      	mov	r1, r6
+  86:	f7ff fffe 	bl	0 <ADC_DMACmd>
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:570
+  ADC_ResetCalibration(ADC1);
+  8a:	480c      	ldr	r0, [pc, #48]	(34 <ADC_ResetCalibration+0x34>)
+  8c:	f7ff fffe 	bl	0 <ADC_ResetCalibration>
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:571
+  while(ADC_GetResetCalibrationStatus(ADC1));
+  90:	480a      	ldr	r0, [pc, #40]	(2c <ADC_GetResetCalibrationStatus+0x2c>)
+  92:	f7ff fffe 	bl	0 <ADC_GetResetCalibrationStatus>
+  96:	2800      	cmp	r0, #0
+  98:	d1fa      	bne.n	90 <Adc_Configuration+0x90>
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:573
+ 
+  ADC_StartCalibration(ADC1);
+  9a:	4808      	ldr	r0, [pc, #32]	(bc <Adc_Configuration+0xbc>)
+  9c:	f7ff fffe 	bl	0 <ADC_StartCalibration>
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:574
+  while(ADC_GetCalibrationStatus(ADC1));
+  a0:	4806      	ldr	r0, [pc, #24]	(1c <ADC_GetCalibrationStatus+0x1c>)
+  a2:	f7ff fffe 	bl	0 <ADC_GetCalibrationStatus>
+  a6:	2800      	cmp	r0, #0
+  a8:	d1fa      	bne.n	a0 <Adc_Configuration+0xa0>
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:576
+      
+  DMA_ITConfig (DMA1_Channel1, DMA_IT_TC, ENABLE );
+  aa:	4805      	ldr	r0, [pc, #20]	(c0 <Adc_Configuration+0xc0>)
+  ac:	2102      	movs	r1, #2
+  ae:	2201      	movs	r2, #1
+  b0:	f7ff fffe 	bl	0 <DMA_ITConfig>
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:578
+
+}
+  b4:	bd70      	pop	{r4, r5, r6, pc}
+  b6:	46c0      	nop			(mov r8, r8)
+  b8:	00000000 	.word	0x00000000
+  bc:	40012400 	.word	0x40012400
+  c0:	40020008 	.word	0x40020008
+Disassembly of section .text.SPI_Configuration:
+
+00000000 <SPI_Configuration>:
+SPI_Configuration():
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:528
+* Output         : None
+* Return         : None
+*******************************************************************************/
+void SPI_Configuration ( void )
+{
+  SPI_InitStructure.SPI_Direction = SPI_Direction_2Lines_FullDuplex;
+   0:	490e      	ldr	r1, [pc, #56]	(3c <SPI_Configuration+0x3c>)
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:529
+  SPI_InitStructure.SPI_Mode = SPI_Mode_Master;
+   2:	f44f 7282 	mov.w	r2, #260	; 0x104
+   6:	804a      	strh	r2, [r1, #2]
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:530
+  SPI_InitStructure.SPI_DataSize = SPI_DataSize_16b;
+   8:	f44f 6200 	mov.w	r2, #2048	; 0x800
+   c:	808a      	strh	r2, [r1, #4]
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:531
+  SPI_InitStructure.SPI_CPOL = SPI_CPOL_High;
+   e:	f04f 0202 	mov.w	r2, #2	; 0x2
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:527
+* Input          : None
+* Output         : None
+* Return         : None
+*******************************************************************************/
+void SPI_Configuration ( void )
+{
+  12:	b510      	push	{r4, lr}
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:531
+  SPI_InitStructure.SPI_Direction = SPI_Direction_2Lines_FullDuplex;
+  SPI_InitStructure.SPI_Mode = SPI_Mode_Master;
+  SPI_InitStructure.SPI_DataSize = SPI_DataSize_16b;
+  SPI_InitStructure.SPI_CPOL = SPI_CPOL_High;
+  14:	80ca      	strh	r2, [r1, #6]
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:537
+  SPI_InitStructure.SPI_CPHA = SPI_CPHA_1Edge;
+  SPI_InitStructure.SPI_NSS = SPI_NSS_Soft;
+  SPI_InitStructure.SPI_BaudRatePrescaler = SPI_BaudRatePrescaler_256;
+  SPI_InitStructure.SPI_FirstBit = SPI_FirstBit_MSB;
+
+  SPI_Init(SPI1, &SPI_InitStructure);
+  16:	4c0a      	ldr	r4, [pc, #40]	(40 <SPI_Configuration+0x40>)
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:533
+  SPI_InitStructure.SPI_Direction = SPI_Direction_2Lines_FullDuplex;
+  SPI_InitStructure.SPI_Mode = SPI_Mode_Master;
+  SPI_InitStructure.SPI_DataSize = SPI_DataSize_16b;
+  SPI_InitStructure.SPI_CPOL = SPI_CPOL_High;
+  SPI_InitStructure.SPI_CPHA = SPI_CPHA_1Edge;
+  SPI_InitStructure.SPI_NSS = SPI_NSS_Soft;
+  18:	f44f 7200 	mov.w	r2, #512	; 0x200
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:528
+* Output         : None
+* Return         : None
+*******************************************************************************/
+void SPI_Configuration ( void )
+{
+  SPI_InitStructure.SPI_Direction = SPI_Direction_2Lines_FullDuplex;
+  1c:	2300      	movs	r3, #0
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:533
+  SPI_InitStructure.SPI_Mode = SPI_Mode_Master;
+  SPI_InitStructure.SPI_DataSize = SPI_DataSize_16b;
+  SPI_InitStructure.SPI_CPOL = SPI_CPOL_High;
+  SPI_InitStructure.SPI_CPHA = SPI_CPHA_1Edge;
+  SPI_InitStructure.SPI_NSS = SPI_NSS_Soft;
+  1e:	814a      	strh	r2, [r1, #10]
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:534
+  SPI_InitStructure.SPI_BaudRatePrescaler = SPI_BaudRatePrescaler_256;
+  20:	f04f 0238 	mov.w	r2, #56	; 0x38
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:528
+* Output         : None
+* Return         : None
+*******************************************************************************/
+void SPI_Configuration ( void )
+{
+  SPI_InitStructure.SPI_Direction = SPI_Direction_2Lines_FullDuplex;
+  24:	800b      	strh	r3, [r1, #0]
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:532
+  SPI_InitStructure.SPI_Mode = SPI_Mode_Master;
+  SPI_InitStructure.SPI_DataSize = SPI_DataSize_16b;
+  SPI_InitStructure.SPI_CPOL = SPI_CPOL_High;
+  SPI_InitStructure.SPI_CPHA = SPI_CPHA_1Edge;
+  26:	810b      	strh	r3, [r1, #8]
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:534
+  SPI_InitStructure.SPI_NSS = SPI_NSS_Soft;
+  SPI_InitStructure.SPI_BaudRatePrescaler = SPI_BaudRatePrescaler_256;
+  28:	818a      	strh	r2, [r1, #12]
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:535
+  SPI_InitStructure.SPI_FirstBit = SPI_FirstBit_MSB;
+  2a:	81cb      	strh	r3, [r1, #14]
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:537
+
+  SPI_Init(SPI1, &SPI_InitStructure);
+  2c:	4620      	mov	r0, r4
+  2e:	f7ff fffe 	bl	0 <SPI_Init>
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:538
+  SPI_Cmd(SPI1, ENABLE);
+  32:	4620      	mov	r0, r4
+  34:	2101      	movs	r1, #1
+  36:	f7ff fffe 	bl	0 <SPI_Cmd>
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:540
+
+}
+  3a:	bd10      	pop	{r4, pc}
+  3c:	00000000 	.word	0x00000000
+  40:	40013000 	.word	0x40013000
+Disassembly of section .text.Tim_Coufiguration:
+
+00000000 <Tim_Coufiguration>:
+Tim_Coufiguration():
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:432
+* Input          : None
+* Output         : None
+* Return         : None
+*******************************************************************************/
+void Tim_Coufiguration ( void )
+{
+   0:	e92d 47f0 	stmdb	sp!, {r4, r5, r6, r7, r8, r9, sl, lr}
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:463
+  TIM_Cmd(TIM3, ENABLE);
+*/
+
+//TIMER 1 and 3 selected as PWM outputs
+
+  TIM_TimeBaseStructure.TIM_Period = 999;
+   4:	4c2f      	ldr	r4, [pc, #188]	(c4 <Tim_Coufiguration+0xc4>)
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:468
+  TIM_TimeBaseStructure.TIM_Prescaler = 3;
+  TIM_TimeBaseStructure.TIM_ClockDivision = 0;
+  TIM_TimeBaseStructure.TIM_CounterMode = TIM_CounterMode_Up;
+
+  TIM_TimeBaseInit(TIM1, &TIM_TimeBaseStructure);
+   6:	4e30      	ldr	r6, [pc, #192]	(c8 <Tim_Coufiguration+0xc8>)
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:463
+  TIM_Cmd(TIM3, ENABLE);
+*/
+
+//TIMER 1 and 3 selected as PWM outputs
+
+  TIM_TimeBaseStructure.TIM_Period = 999;
+   8:	f240 33e7 	movw	r3, #999	; 0x3e7
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:465
+  TIM_TimeBaseStructure.TIM_Prescaler = 3;
+  TIM_TimeBaseStructure.TIM_ClockDivision = 0;
+   c:	2500      	movs	r5, #0
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:463
+  TIM_Cmd(TIM3, ENABLE);
+*/
+
+//TIMER 1 and 3 selected as PWM outputs
+
+  TIM_TimeBaseStructure.TIM_Period = 999;
+   e:	80a3      	strh	r3, [r4, #4]
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:468
+  TIM_TimeBaseStructure.TIM_Prescaler = 3;
+  TIM_TimeBaseStructure.TIM_ClockDivision = 0;
+  TIM_TimeBaseStructure.TIM_CounterMode = TIM_CounterMode_Up;
+
+  TIM_TimeBaseInit(TIM1, &TIM_TimeBaseStructure);
+  10:	4630      	mov	r0, r6
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:464
+*/
+
+//TIMER 1 and 3 selected as PWM outputs
+
+  TIM_TimeBaseStructure.TIM_Period = 999;
+  TIM_TimeBaseStructure.TIM_Prescaler = 3;
+  12:	f04f 0303 	mov.w	r3, #3	; 0x3
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:468
+  TIM_TimeBaseStructure.TIM_ClockDivision = 0;
+  TIM_TimeBaseStructure.TIM_CounterMode = TIM_CounterMode_Up;
+
+  TIM_TimeBaseInit(TIM1, &TIM_TimeBaseStructure);
+  16:	4621      	mov	r1, r4
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:464
+*/
+
+//TIMER 1 and 3 selected as PWM outputs
+
+  TIM_TimeBaseStructure.TIM_Period = 999;
+  TIM_TimeBaseStructure.TIM_Prescaler = 3;
+  18:	8023      	strh	r3, [r4, #0]
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:465
+  TIM_TimeBaseStructure.TIM_ClockDivision = 0;
+  1a:	80e5      	strh	r5, [r4, #6]
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:466
+  TIM_TimeBaseStructure.TIM_CounterMode = TIM_CounterMode_Up;
+  1c:	8065      	strh	r5, [r4, #2]
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:468
+
+  TIM_TimeBaseInit(TIM1, &TIM_TimeBaseStructure);
+  1e:	f7ff fffe 	bl	0 <TIM_TimeBaseInit>
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:470
+ 
+  TIM_OCInitStructure.TIM_OCMode = TIM_OCMode_PWM1;
+  22:	492a      	ldr	r1, [pc, #168]	(cc <Tim_Coufiguration+0xcc>)
+  24:	f04f 0360 	mov.w	r3, #96	; 0x60
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:471
+  TIM_OCInitStructure.TIM_OutputState = TIM_OutputState_Enable;
+  28:	f04f 0801 	mov.w	r8, #1	; 0x1
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:473
+  TIM_OCInitStructure.TIM_Pulse = PWM_OFF;
+  TIM_OCInitStructure.TIM_OCPolarity = TIM_OCPolarity_Low;
+  2c:	f04f 0a02 	mov.w	sl, #2	; 0x2
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:470
+  TIM_TimeBaseStructure.TIM_ClockDivision = 0;
+  TIM_TimeBaseStructure.TIM_CounterMode = TIM_CounterMode_Up;
+
+  TIM_TimeBaseInit(TIM1, &TIM_TimeBaseStructure);
+ 
+  TIM_OCInitStructure.TIM_OCMode = TIM_OCMode_PWM1;
+  30:	800b      	strh	r3, [r1, #0]
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:471
+  TIM_OCInitStructure.TIM_OutputState = TIM_OutputState_Enable;
+  32:	f8a1 8002 	strh.w	r8, [r1, #2]
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:472
+  TIM_OCInitStructure.TIM_Pulse = PWM_OFF;
+  36:	80cd      	strh	r5, [r1, #6]
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:473
+  TIM_OCInitStructure.TIM_OCPolarity = TIM_OCPolarity_Low;
+  38:	f8a1 a008 	strh.w	sl, [r1, #8]
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:475
+
+  TIM_OC1Init(TIM1, &TIM_OCInitStructure);
+  3c:	4630      	mov	r0, r6
+  3e:	f7ff fffe 	bl	0 <TIM_OC1Init>
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:476
+  TIM_OC1PreloadConfig(TIM1, TIM_OCPreload_Enable);
+  42:	4630      	mov	r0, r6
+  44:	2108      	movs	r1, #8
+  46:	f7ff fffe 	bl	0 <TIM_OC1PreloadConfig>
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:478
+  
+  TIM_ARRPreloadConfig(TIM1, ENABLE);
+  4a:	4630      	mov	r0, r6
+  4c:	4641      	mov	r1, r8
+  4e:	f7ff fffe 	bl	0 <TIM_ARRPreloadConfig>
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:479
+  TIM_CtrlPWMOutputs(TIM1, ENABLE);
+  52:	4630      	mov	r0, r6
+  54:	4641      	mov	r1, r8
+  56:	f7ff fffe 	bl	0 <TIM_CtrlPWMOutputs>
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:480
+  TIM_Cmd(TIM1, ENABLE);
+  5a:	4630      	mov	r0, r6
+  5c:	4641      	mov	r1, r8
+  5e:	f7ff fffe 	bl	0 <TIM_Cmd>
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:485
+
+//TIMER 2 selected as input capture mode
+
+  TIM_TimeBaseStructure.TIM_Period = 1199;
+  TIM_TimeBaseStructure.TIM_Prescaler = 71;
+  62:	2647      	movs	r6, #71
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:484
+  TIM_CtrlPWMOutputs(TIM1, ENABLE);
+  TIM_Cmd(TIM1, ENABLE);
+
+//TIMER 2 selected as input capture mode
+
+  TIM_TimeBaseStructure.TIM_Period = 1199;
+  64:	f240 49af 	movw	r9, #1199	; 0x4af
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:489
+  TIM_TimeBaseStructure.TIM_Prescaler = 71;
+  TIM_TimeBaseStructure.TIM_ClockDivision = 0;
+  TIM_TimeBaseStructure.TIM_CounterMode = TIM_CounterMode_Up;
+
+  TIM_TimeBaseInit(TIM2, &TIM_TimeBaseStructure);
+  68:	4621      	mov	r1, r4
+  6a:	f04f 4080 	mov.w	r0, #1073741824	; 0x40000000
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:485
+  TIM_Cmd(TIM1, ENABLE);
+
+//TIMER 2 selected as input capture mode
+
+  TIM_TimeBaseStructure.TIM_Period = 1199;
+  TIM_TimeBaseStructure.TIM_Prescaler = 71;
+  6e:	8026      	strh	r6, [r4, #0]
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:484
+  TIM_CtrlPWMOutputs(TIM1, ENABLE);
+  TIM_Cmd(TIM1, ENABLE);
+
+//TIMER 2 selected as input capture mode
+
+  TIM_TimeBaseStructure.TIM_Period = 1199;
+  70:	f8a4 9004 	strh.w	r9, [r4, #4]
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:486
+  TIM_TimeBaseStructure.TIM_Prescaler = 71;
+  TIM_TimeBaseStructure.TIM_ClockDivision = 0;
+  74:	80e5      	strh	r5, [r4, #6]
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:487
+  TIM_TimeBaseStructure.TIM_CounterMode = TIM_CounterMode_Up;
+  76:	8065      	strh	r5, [r4, #2]
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:489
+
+  TIM_TimeBaseInit(TIM2, &TIM_TimeBaseStructure);
+  78:	f7ff fffe 	bl	0 <TIM_TimeBaseInit>
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:490
+  TIM_Cmd(TIM2, ENABLE);
+  7c:	4641      	mov	r1, r8
+  7e:	f04f 4080 	mov.w	r0, #1073741824	; 0x40000000
+  82:	f7ff fffe 	bl	0 <TIM_Cmd>
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:496
+
+//TIMER 3 selected as input capture mode
+
+  /* Time base configuration */
+  TIM_TimeBaseStructure.TIM_Period =1199;
+  TIM_TimeBaseStructure.TIM_Prescaler = 71;
+  86:	8026      	strh	r6, [r4, #0]
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:500
+  TIM_TimeBaseStructure.TIM_ClockDivision = 0;
+  TIM_TimeBaseStructure.TIM_CounterMode = TIM_CounterMode_Up;
+
+  TIM_TimeBaseInit(TIM3, &TIM_TimeBaseStructure);
+  88:	4e11      	ldr	r6, [pc, #68]	(d0 <Tim_Coufiguration+0xd0>)
+  8a:	4621      	mov	r1, r4
+  8c:	4630      	mov	r0, r6
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:495
+  TIM_Cmd(TIM2, ENABLE);
+
+//TIMER 3 selected as input capture mode
+
+  /* Time base configuration */
+  TIM_TimeBaseStructure.TIM_Period =1199;
+  8e:	f8a4 9004 	strh.w	r9, [r4, #4]
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:497
+  TIM_TimeBaseStructure.TIM_Prescaler = 71;
+  TIM_TimeBaseStructure.TIM_ClockDivision = 0;
+  92:	80e5      	strh	r5, [r4, #6]
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:498
+  TIM_TimeBaseStructure.TIM_CounterMode = TIM_CounterMode_Up;
+  94:	8065      	strh	r5, [r4, #2]
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:500
+
+  TIM_TimeBaseInit(TIM3, &TIM_TimeBaseStructure);
+  96:	f7ff fffe 	bl	0 <TIM_TimeBaseInit>
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:502
+
+  TIM_ICInitStructure.TIM_Channel = TIM_Channel_1;
+  9a:	490e      	ldr	r1, [pc, #56]	(d4 <Tim_Coufiguration+0xd4>)
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:508
+  TIM_ICInitStructure.TIM_ICPolarity = TIM_ICPolarity_Rising;
+  TIM_ICInitStructure.TIM_ICSelection = TIM_ICSelection_DirectTI;
+  TIM_ICInitStructure.TIM_ICPrescaler = TIM_ICPSC_DIV1;
+  TIM_ICInitStructure.TIM_ICFilter = 0;
+
+  TIM_ICInit(TIM3, &TIM_ICInitStructure);
+  9c:	4630      	mov	r0, r6
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:502
+  TIM_TimeBaseStructure.TIM_ClockDivision = 0;
+  TIM_TimeBaseStructure.TIM_CounterMode = TIM_CounterMode_Up;
+
+  TIM_TimeBaseInit(TIM3, &TIM_TimeBaseStructure);
+
+  TIM_ICInitStructure.TIM_Channel = TIM_Channel_1;
+  9e:	800d      	strh	r5, [r1, #0]
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:503
+  TIM_ICInitStructure.TIM_ICPolarity = TIM_ICPolarity_Rising;
+  a0:	804d      	strh	r5, [r1, #2]
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:504
+  TIM_ICInitStructure.TIM_ICSelection = TIM_ICSelection_DirectTI;
+  a2:	f8a1 8004 	strh.w	r8, [r1, #4]
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:505
+  TIM_ICInitStructure.TIM_ICPrescaler = TIM_ICPSC_DIV1;
+  a6:	80cd      	strh	r5, [r1, #6]
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:506
+  TIM_ICInitStructure.TIM_ICFilter = 0;
+  a8:	810d      	strh	r5, [r1, #8]
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:508
+
+  TIM_ICInit(TIM3, &TIM_ICInitStructure);
+  aa:	f7ff fffe 	bl	0 <TIM_ICInit>
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:511
+
+  /* TIM enable counter */
+  TIM_Cmd(TIM3, ENABLE);
+  ae:	4630      	mov	r0, r6
+  b0:	4641      	mov	r1, r8
+  b2:	f7ff fffe 	bl	0 <TIM_Cmd>
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:514
+
+  /* Enable the CC1 Interrupt Request */
+  TIM_ITConfig(TIM3, TIM_IT_CC1, ENABLE);
+  b6:	4630      	mov	r0, r6
+  b8:	4651      	mov	r1, sl
+  ba:	4642      	mov	r2, r8
+  bc:	f7ff fffe 	bl	0 <TIM_ITConfig>
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:517
+
+
+}
+  c0:	e8bd 87f0 	ldmia.w	sp!, {r4, r5, r6, r7, r8, r9, sl, pc}
+  c4:	00000000 	.word	0x00000000
+  c8:	40012c00 	.word	0x40012c00
+  cc:	00000000 	.word	0x00000000
+  d0:	40000400 	.word	0x40000400
+  d4:	00000000 	.word	0x00000000
+Disassembly of section .text.NVIC_Configuration:
+
+00000000 <NVIC_Configuration>:
+NVIC_Configuration():
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:371
+* Input          : None
+* Output         : None
+* Return         : None
+*******************************************************************************/
+void NVIC_Configuration(void)
+{
+   0:	b570      	push	{r4, r5, r6, lr}
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:374
+//#ifdef  VECT_TAB_RAM  
+//  /* Set the Vector Table base location at 0x20000000 */ 
+  NVIC_SetVectorTable(NVIC_VectTab_RAM, 0x0); 
+   2:	2100      	movs	r1, #0
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:381
+  /* Set the Vector Table base location at 0x08000000 */ 
+  NVIC_SetVectorTable(0x08000000, 0x0);   
+//#endif
+
+//USB Interrupt
+  NVIC_InitStructure.NVIC_IRQChannel = USB_LP_CAN_RX0_IRQChannel;
+   4:	4c1f      	ldr	r4, [pc, #124]	(84 <NVIC_Configuration+0x84>)
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:374
+*******************************************************************************/
+void NVIC_Configuration(void)
+{
+//#ifdef  VECT_TAB_RAM  
+//  /* Set the Vector Table base location at 0x20000000 */ 
+  NVIC_SetVectorTable(NVIC_VectTab_RAM, 0x0); 
+   6:	f04f 5000 	mov.w	r0, #536870912	; 0x20000000
+   a:	f7ff fffe 	bl	0 <NVIC_SetVectorTable>
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:377
+//#else  /* VECT_TAB_FLASH  */
+  /* Set the Vector Table base location at 0x08000000 */ 
+  NVIC_SetVectorTable(0x08000000, 0x0);   
+   e:	2100      	movs	r1, #0
+  10:	f04f 6000 	mov.w	r0, #134217728	; 0x8000000
+  14:	f7ff fffe 	bl	0 <NVIC_SetVectorTable>
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:382
+//#endif
+
+//USB Interrupt
+  NVIC_InitStructure.NVIC_IRQChannel = USB_LP_CAN_RX0_IRQChannel;
+  NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 1;
+  18:	2501      	movs	r5, #1
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:381
+  /* Set the Vector Table base location at 0x08000000 */ 
+  NVIC_SetVectorTable(0x08000000, 0x0);   
+//#endif
+
+//USB Interrupt
+  NVIC_InitStructure.NVIC_IRQChannel = USB_LP_CAN_RX0_IRQChannel;
+  1a:	2314      	movs	r3, #20
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:385
+  NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 1;
+  NVIC_InitStructure.NVIC_IRQChannelSubPriority = 1;
+  NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
+  NVIC_Init(&NVIC_InitStructure);
+  1c:	4620      	mov	r0, r4
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:390
+
+//DMA for USART
+  NVIC_InitStructure.NVIC_IRQChannel = DMA1_Channel4_IRQChannel;
+  NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 1;
+  NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0;
+  1e:	2600      	movs	r6, #0
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:381
+  /* Set the Vector Table base location at 0x08000000 */ 
+  NVIC_SetVectorTable(0x08000000, 0x0);   
+//#endif
+
+//USB Interrupt
+  NVIC_InitStructure.NVIC_IRQChannel = USB_LP_CAN_RX0_IRQChannel;
+  20:	7023      	strb	r3, [r4, #0]
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:382
+  NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 1;
+  22:	7065      	strb	r5, [r4, #1]
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:383
+  NVIC_InitStructure.NVIC_IRQChannelSubPriority = 1;
+  24:	70a5      	strb	r5, [r4, #2]
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:384
+  NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
+  26:	70e5      	strb	r5, [r4, #3]
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:385
+  NVIC_Init(&NVIC_InitStructure);
+  28:	f7ff fffe 	bl	0 <NVIC_Init>
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:388
+
+//DMA for USART
+  NVIC_InitStructure.NVIC_IRQChannel = DMA1_Channel4_IRQChannel;
+  2c:	230e      	movs	r3, #14
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:392
+  NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 1;
+  NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0;
+  NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
+  NVIC_Init(&NVIC_InitStructure);
+  2e:	4620      	mov	r0, r4
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:388
+  NVIC_InitStructure.NVIC_IRQChannelSubPriority = 1;
+  NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
+  NVIC_Init(&NVIC_InitStructure);
+
+//DMA for USART
+  NVIC_InitStructure.NVIC_IRQChannel = DMA1_Channel4_IRQChannel;
+  30:	7023      	strb	r3, [r4, #0]
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:389
+  NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 1;
+  32:	7065      	strb	r5, [r4, #1]
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:390
+  NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0;
+  34:	70a6      	strb	r6, [r4, #2]
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:391
+  NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
+  36:	70e5      	strb	r5, [r4, #3]
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:392
+  NVIC_Init(&NVIC_InitStructure);
+  38:	f7ff fffe 	bl	0 <NVIC_Init>
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:395
+
+//DMA for ADC
+  NVIC_InitStructure.NVIC_IRQChannel = DMA1_Channel1_IRQChannel;
+  3c:	230b      	movs	r3, #11
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:399
+  NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 0;
+  NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0;
+  NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
+  NVIC_Init(&NVIC_InitStructure);
+  3e:	4620      	mov	r0, r4
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:395
+  NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0;
+  NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
+  NVIC_Init(&NVIC_InitStructure);
+
+//DMA for ADC
+  NVIC_InitStructure.NVIC_IRQChannel = DMA1_Channel1_IRQChannel;
+  40:	7023      	strb	r3, [r4, #0]
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:396
+  NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 0;
+  42:	7066      	strb	r6, [r4, #1]
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:397
+  NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0;
+  44:	70a6      	strb	r6, [r4, #2]
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:398
+  NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
+  46:	70e5      	strb	r5, [r4, #3]
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:399
+  NVIC_Init(&NVIC_InitStructure);
+  48:	f7ff fffe 	bl	0 <NVIC_Init>
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:402
+
+//Encoder interrupt
+  NVIC_InitStructure.NVIC_IRQChannel = EXTI15_10_IRQChannel;
+  4c:	2328      	movs	r3, #40
+  4e:	7023      	strb	r3, [r4, #0]
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:406
+  NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 0;
+  NVIC_InitStructure.NVIC_IRQChannelSubPriority = 2;
+  NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
+  NVIC_Init(&NVIC_InitStructure);
+  50:	4620      	mov	r0, r4
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:404
+  NVIC_Init(&NVIC_InitStructure);
+
+//Encoder interrupt
+  NVIC_InitStructure.NVIC_IRQChannel = EXTI15_10_IRQChannel;
+  NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 0;
+  NVIC_InitStructure.NVIC_IRQChannelSubPriority = 2;
+  52:	2302      	movs	r3, #2
+  54:	70a3      	strb	r3, [r4, #2]
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:403
+  NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
+  NVIC_Init(&NVIC_InitStructure);
+
+//Encoder interrupt
+  NVIC_InitStructure.NVIC_IRQChannel = EXTI15_10_IRQChannel;
+  NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 0;
+  56:	7066      	strb	r6, [r4, #1]
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:405
+  NVIC_InitStructure.NVIC_IRQChannelSubPriority = 2;
+  NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
+  58:	70e5      	strb	r5, [r4, #3]
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:406
+  NVIC_Init(&NVIC_InitStructure);
+  5a:	f7ff fffe 	bl	0 <NVIC_Init>
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:409
+
+//PWM encoder interrupt
+  NVIC_InitStructure.NVIC_IRQChannel = TIM3_IRQChannel;
+  5e:	231d      	movs	r3, #29
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:413
+  NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 0;
+  NVIC_InitStructure.NVIC_IRQChannelSubPriority = 1;
+  NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
+  NVIC_Init(&NVIC_InitStructure);
+  60:	4620      	mov	r0, r4
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:409
+  NVIC_InitStructure.NVIC_IRQChannelSubPriority = 2;
+  NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
+  NVIC_Init(&NVIC_InitStructure);
+
+//PWM encoder interrupt
+  NVIC_InitStructure.NVIC_IRQChannel = TIM3_IRQChannel;
+  62:	7023      	strb	r3, [r4, #0]
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:410
+  NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 0;
+  64:	7066      	strb	r6, [r4, #1]
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:411
+  NVIC_InitStructure.NVIC_IRQChannelSubPriority = 1;
+  66:	70a5      	strb	r5, [r4, #2]
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:412
+  NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
+  68:	70e5      	strb	r5, [r4, #3]
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:413
+  NVIC_Init(&NVIC_InitStructure);
+  6a:	f7ff fffe 	bl	0 <NVIC_Init>
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:416
+
+  /* Enable the USART1 Interrupt */
+  NVIC_InitStructure.NVIC_IRQChannel = USART1_IRQChannel;
+  6e:	2325      	movs	r3, #37
+  70:	7023      	strb	r3, [r4, #0]
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:420
+  NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 0;
+  NVIC_InitStructure.NVIC_IRQChannelSubPriority = 3;
+  NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
+  NVIC_Init(&NVIC_InitStructure);
+  72:	4620      	mov	r0, r4
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:418
+  NVIC_Init(&NVIC_InitStructure);
+
+  /* Enable the USART1 Interrupt */
+  NVIC_InitStructure.NVIC_IRQChannel = USART1_IRQChannel;
+  NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 0;
+  NVIC_InitStructure.NVIC_IRQChannelSubPriority = 3;
+  74:	2303      	movs	r3, #3
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:417
+  NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
+  NVIC_Init(&NVIC_InitStructure);
+
+  /* Enable the USART1 Interrupt */
+  NVIC_InitStructure.NVIC_IRQChannel = USART1_IRQChannel;
+  NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 0;
+  76:	7066      	strb	r6, [r4, #1]
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:418
+  NVIC_InitStructure.NVIC_IRQChannelSubPriority = 3;
+  78:	70a3      	strb	r3, [r4, #2]
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:419
+  NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
+  7a:	70e5      	strb	r5, [r4, #3]
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:420
+  NVIC_Init(&NVIC_InitStructure);
+  7c:	f7ff fffe 	bl	0 <NVIC_Init>
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:422
+
+}
+  80:	bd70      	pop	{r4, r5, r6, pc}
+  82:	46c0      	nop			(mov r8, r8)
+  84:	00000000 	.word	0x00000000
+Disassembly of section .text.GPIO_Configuration:
+
+00000000 <GPIO_Configuration>:
+GPIO_Configuration():
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:249
+* Input          : None
+* Output         : None
+* Return         : None
+*******************************************************************************/
+void GPIO_Configuration(void)
+{
+   0:	e92d 4ff8 	stmdb	sp!, {r3, r4, r5, r6, r7, r8, r9, sl, fp, lr}
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:253
+  GPIO_PinRemapConfig(GPIO_Remap_SWJ_Disable, ENABLE);
+
+//ANALOG INPUTS
+  GPIO_InitStructure.GPIO_Pin = GPIO_Pin_0 | GPIO_Pin_1;
+   4:	4c63      	ldr	r4, [pc, #396]	(194 <GPIO_Configuration+0x194>)
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:255
+  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AIN;
+  GPIO_Init(GPIOA, &GPIO_InitStructure);
+   6:	4f64      	ldr	r7, [pc, #400]	(198 <GPIO_Configuration+0x198>)
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:259
+
+  GPIO_InitStructure.GPIO_Pin = GPIO_Pin_0 | GPIO_Pin_1;
+  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AIN;
+  GPIO_Init(GPIOB, &GPIO_InitStructure);
+   8:	f8df a19c 	ldr.w	sl, [pc, #412]	; 1a8 <GPIO_Configuration+0x1a8>
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:250
+* Output         : None
+* Return         : None
+*******************************************************************************/
+void GPIO_Configuration(void)
+{
+  GPIO_PinRemapConfig(GPIO_Remap_SWJ_Disable, ENABLE);
+   c:	2101      	movs	r1, #1
+   e:	4863      	ldr	r0, [pc, #396]	(19c <GPIO_Configuration+0x19c>)
+  10:	f7ff fffe 	bl	0 <GPIO_PinRemapConfig>
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:263
+  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AIN;
+  GPIO_Init(GPIOB, &GPIO_InitStructure);
+
+  GPIO_InitStructure.GPIO_Pin = GPIO_Pin_4 | GPIO_Pin_5;
+  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AIN;
+  GPIO_Init(GPIOC, &GPIO_InitStructure);
+  14:	f8df b194 	ldr.w	fp, [pc, #404]	; 1ac <GPIO_Configuration+0x1ac>
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:254
+{
+  GPIO_PinRemapConfig(GPIO_Remap_SWJ_Disable, ENABLE);
+
+//ANALOG INPUTS
+  GPIO_InitStructure.GPIO_Pin = GPIO_Pin_0 | GPIO_Pin_1;
+  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AIN;
+  18:	2500      	movs	r5, #0
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:253
+void GPIO_Configuration(void)
+{
+  GPIO_PinRemapConfig(GPIO_Remap_SWJ_Disable, ENABLE);
+
+//ANALOG INPUTS
+  GPIO_InitStructure.GPIO_Pin = GPIO_Pin_0 | GPIO_Pin_1;
+  1a:	f04f 0303 	mov.w	r3, #3	; 0x3
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:255
+  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AIN;
+  GPIO_Init(GPIOA, &GPIO_InitStructure);
+  1e:	4638      	mov	r0, r7
+  20:	4621      	mov	r1, r4
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:253
+void GPIO_Configuration(void)
+{
+  GPIO_PinRemapConfig(GPIO_Remap_SWJ_Disable, ENABLE);
+
+//ANALOG INPUTS
+  GPIO_InitStructure.GPIO_Pin = GPIO_Pin_0 | GPIO_Pin_1;
+  22:	8023      	strh	r3, [r4, #0]
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:254
+  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AIN;
+  24:	70e5      	strb	r5, [r4, #3]
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:255
+  GPIO_Init(GPIOA, &GPIO_InitStructure);
+  26:	f7ff fffe 	bl	0 <GPIO_Init>
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:257
+
+  GPIO_InitStructure.GPIO_Pin = GPIO_Pin_0 | GPIO_Pin_1;
+  2a:	f04f 0303 	mov.w	r3, #3	; 0x3
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:259
+  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AIN;
+  GPIO_Init(GPIOB, &GPIO_InitStructure);
+  2e:	4650      	mov	r0, sl
+  30:	4621      	mov	r1, r4
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:257
+//ANALOG INPUTS
+  GPIO_InitStructure.GPIO_Pin = GPIO_Pin_0 | GPIO_Pin_1;
+  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AIN;
+  GPIO_Init(GPIOA, &GPIO_InitStructure);
+
+  GPIO_InitStructure.GPIO_Pin = GPIO_Pin_0 | GPIO_Pin_1;
+  32:	8023      	strh	r3, [r4, #0]
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:258
+  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AIN;
+  34:	70e5      	strb	r5, [r4, #3]
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:259
+  GPIO_Init(GPIOB, &GPIO_InitStructure);
+  36:	f7ff fffe 	bl	0 <GPIO_Init>
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:261
+
+  GPIO_InitStructure.GPIO_Pin = GPIO_Pin_4 | GPIO_Pin_5;
+  3a:	f04f 0330 	mov.w	r3, #48	; 0x30
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:263
+  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AIN;
+  GPIO_Init(GPIOC, &GPIO_InitStructure);
+  3e:	4658      	mov	r0, fp
+  40:	4621      	mov	r1, r4
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:267
+
+//INPUTS
+  GPIO_InitStructure.GPIO_Pin = GPIO_Pin_13 | GPIO_Pin_14;
+  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN_FLOATING;
+  42:	f04f 0904 	mov.w	r9, #4	; 0x4
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:261
+
+  GPIO_InitStructure.GPIO_Pin = GPIO_Pin_0 | GPIO_Pin_1;
+  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AIN;
+  GPIO_Init(GPIOB, &GPIO_InitStructure);
+
+  GPIO_InitStructure.GPIO_Pin = GPIO_Pin_4 | GPIO_Pin_5;
+  46:	8023      	strh	r3, [r4, #0]
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:262
+  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AIN;
+  48:	70e5      	strb	r5, [r4, #3]
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:263
+  GPIO_Init(GPIOC, &GPIO_InitStructure);
+  4a:	f7ff fffe 	bl	0 <GPIO_Init>
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:266
+
+//INPUTS
+  GPIO_InitStructure.GPIO_Pin = GPIO_Pin_13 | GPIO_Pin_14;
+  4e:	f44f 43c0 	mov.w	r3, #24576	; 0x6000
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:268
+  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN_FLOATING;
+  GPIO_Init(GPIOA, &GPIO_InitStructure);
+  52:	4638      	mov	r0, r7
+  54:	4621      	mov	r1, r4
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:270
+  
+  GPIO_InitStructure.GPIO_Pin = GPIO_Pin_4;
+  56:	2610      	movs	r6, #16
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:266
+  GPIO_InitStructure.GPIO_Pin = GPIO_Pin_4 | GPIO_Pin_5;
+  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AIN;
+  GPIO_Init(GPIOC, &GPIO_InitStructure);
+
+//INPUTS
+  GPIO_InitStructure.GPIO_Pin = GPIO_Pin_13 | GPIO_Pin_14;
+  58:	8023      	strh	r3, [r4, #0]
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:267
+  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN_FLOATING;
+  5a:	f884 9003 	strb.w	r9, [r4, #3]
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:268
+  GPIO_Init(GPIOA, &GPIO_InitStructure);
+  5e:	f7ff fffe 	bl	0 <GPIO_Init>
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:272
+  
+  GPIO_InitStructure.GPIO_Pin = GPIO_Pin_4;
+  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN_FLOATING;
+  GPIO_Init(GPIOB, &GPIO_InitStructure);
+  62:	4650      	mov	r0, sl
+  64:	4621      	mov	r1, r4
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:270
+//INPUTS
+  GPIO_InitStructure.GPIO_Pin = GPIO_Pin_13 | GPIO_Pin_14;
+  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN_FLOATING;
+  GPIO_Init(GPIOA, &GPIO_InitStructure);
+  
+  GPIO_InitStructure.GPIO_Pin = GPIO_Pin_4;
+  66:	8026      	strh	r6, [r4, #0]
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:271
+  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN_FLOATING;
+  68:	f884 9003 	strb.w	r9, [r4, #3]
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:272
+  GPIO_Init(GPIOB, &GPIO_InitStructure);
+  6c:	f7ff fffe 	bl	0 <GPIO_Init>
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:274
+ 
+  GPIO_InitStructure.GPIO_Pin = GPIO_Pin_0 | GPIO_Pin_1 | GPIO_Pin_2 | GPIO_Pin_3 | GPIO_Pin_6 | GPIO_Pin_7 | GPIO_Pin_8;
+  70:	f240 13cf 	movw	r3, #463	; 0x1cf
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:276
+  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN_FLOATING;
+  GPIO_Init(GPIOC, &GPIO_InitStructure);
+  74:	4658      	mov	r0, fp
+  76:	4621      	mov	r1, r4
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:287
+//  GPIO_Init(GPIOC, &GPIO_InitStructure);
+
+//RELAYS
+  GPIO_InitStructure.GPIO_Pin = GPIO_Pin_15;
+  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;
+  GPIO_InitStructure.GPIO_Speed = GPIO_Speed_2MHz;
+  78:	3502      	adds	r5, #2
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:274
+  
+  GPIO_InitStructure.GPIO_Pin = GPIO_Pin_4;
+  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN_FLOATING;
+  GPIO_Init(GPIOB, &GPIO_InitStructure);
+ 
+  GPIO_InitStructure.GPIO_Pin = GPIO_Pin_0 | GPIO_Pin_1 | GPIO_Pin_2 | GPIO_Pin_3 | GPIO_Pin_6 | GPIO_Pin_7 | GPIO_Pin_8;
+  7a:	8023      	strh	r3, [r4, #0]
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:275
+  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN_FLOATING;
+  7c:	f884 9003 	strb.w	r9, [r4, #3]
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:276
+  GPIO_Init(GPIOC, &GPIO_InitStructure);
+  80:	f7ff fffe 	bl	0 <GPIO_Init>
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:285
+//  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN_FLOATING;
+//  GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+//  GPIO_Init(GPIOC, &GPIO_InitStructure);
+
+//RELAYS
+  GPIO_InitStructure.GPIO_Pin = GPIO_Pin_15;
+  84:	f248 0300 	movw	r3, #32768	; 0x8000
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:288
+  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;
+  GPIO_InitStructure.GPIO_Speed = GPIO_Speed_2MHz;
+  GPIO_Init(GPIOA, &GPIO_InitStructure);
+  88:	4638      	mov	r0, r7
+  8a:	4621      	mov	r1, r4
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:285
+//  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN_FLOATING;
+//  GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+//  GPIO_Init(GPIOC, &GPIO_InitStructure);
+
+//RELAYS
+  GPIO_InitStructure.GPIO_Pin = GPIO_Pin_15;
+  8c:	8023      	strh	r3, [r4, #0]
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:286
+  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;
+  8e:	70e6      	strb	r6, [r4, #3]
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:287
+  GPIO_InitStructure.GPIO_Speed = GPIO_Speed_2MHz;
+  90:	70a5      	strb	r5, [r4, #2]
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:288
+  GPIO_Init(GPIOA, &GPIO_InitStructure);
+  92:	f7ff fffe 	bl	0 <GPIO_Init>
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:290
+
+  GPIO_InitStructure.GPIO_Pin = GPIO_Pin_3 | GPIO_Pin_5 | GPIO_Pin_10 | GPIO_Pin_11;
+  96:	f640 4328 	movw	r3, #3112	; 0xc28
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:293
+  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;
+  GPIO_InitStructure.GPIO_Speed = GPIO_Speed_2MHz;
+  GPIO_Init(GPIOB, &GPIO_InitStructure);
+  9a:	4650      	mov	r0, sl
+  9c:	4621      	mov	r1, r4
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:290
+  GPIO_InitStructure.GPIO_Pin = GPIO_Pin_15;
+  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;
+  GPIO_InitStructure.GPIO_Speed = GPIO_Speed_2MHz;
+  GPIO_Init(GPIOA, &GPIO_InitStructure);
+
+  GPIO_InitStructure.GPIO_Pin = GPIO_Pin_3 | GPIO_Pin_5 | GPIO_Pin_10 | GPIO_Pin_11;
+  9e:	8023      	strh	r3, [r4, #0]
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:291
+  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;
+  a0:	70e6      	strb	r6, [r4, #3]
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:292
+  GPIO_InitStructure.GPIO_Speed = GPIO_Speed_2MHz;
+  a2:	70a5      	strb	r5, [r4, #2]
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:293
+  GPIO_Init(GPIOB, &GPIO_InitStructure);
+  a4:	f7ff fffe 	bl	0 <GPIO_Init>
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:295
+
+  GPIO_InitStructure.GPIO_Pin = GPIO_Pin_13;
+  a8:	f44f 5300 	mov.w	r3, #8192	; 0x2000
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:298
+  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;
+  GPIO_InitStructure.GPIO_Speed = GPIO_Speed_2MHz;
+  GPIO_Init(GPIOC, &GPIO_InitStructure);
+  ac:	4658      	mov	r0, fp
+  ae:	4621      	mov	r1, r4
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:295
+  GPIO_InitStructure.GPIO_Pin = GPIO_Pin_3 | GPIO_Pin_5 | GPIO_Pin_10 | GPIO_Pin_11;
+  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;
+  GPIO_InitStructure.GPIO_Speed = GPIO_Speed_2MHz;
+  GPIO_Init(GPIOB, &GPIO_InitStructure);
+
+  GPIO_InitStructure.GPIO_Pin = GPIO_Pin_13;
+  b0:	8023      	strh	r3, [r4, #0]
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:296
+  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;
+  b2:	70e6      	strb	r6, [r4, #3]
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:297
+  GPIO_InitStructure.GPIO_Speed = GPIO_Speed_2MHz;
+  b4:	70a5      	strb	r5, [r4, #2]
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:298
+  GPIO_Init(GPIOC, &GPIO_InitStructure);
+  b6:	f7ff fffe 	bl	0 <GPIO_Init>
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:304
+
+//RELAY DIRECTION
+  GPIO_InitStructure.GPIO_Pin = GPIO_Pin_2;
+  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;
+  GPIO_InitStructure.GPIO_Speed = GPIO_Speed_2MHz;
+  GPIO_Init(GPIOB, &GPIO_InitStructure);
+  ba:	4650      	mov	r0, sl
+  bc:	4621      	mov	r1, r4
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:301
+  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;
+  GPIO_InitStructure.GPIO_Speed = GPIO_Speed_2MHz;
+  GPIO_Init(GPIOC, &GPIO_InitStructure);
+
+//RELAY DIRECTION
+  GPIO_InitStructure.GPIO_Pin = GPIO_Pin_2;
+  be:	f8a4 9000 	strh.w	r9, [r4]
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:302
+  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;
+  c2:	70e6      	strb	r6, [r4, #3]
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:303
+  GPIO_InitStructure.GPIO_Speed = GPIO_Speed_2MHz;
+  c4:	70a5      	strb	r5, [r4, #2]
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:304
+  GPIO_Init(GPIOB, &GPIO_InitStructure);
+  c6:	f7ff fffe 	bl	0 <GPIO_Init>
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:307
+
+//OPEN COLLECTORS
+  GPIO_InitStructure.GPIO_Pin = GPIO_Pin_9 | GPIO_Pin_10;
+  ca:	f44f 63c0 	mov.w	r3, #1536	; 0x600
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:310
+  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;
+  GPIO_InitStructure.GPIO_Speed = GPIO_Speed_2MHz;
+  GPIO_Init(GPIOA, &GPIO_InitStructure);
+  ce:	4638      	mov	r0, r7
+  d0:	4621      	mov	r1, r4
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:314
+
+//PWM T1CH1 MOSFET2
+  GPIO_InitStructure.GPIO_Pin = GPIO_Pin_9;
+  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF_PP;
+  d2:	f04f 0818 	mov.w	r8, #24	; 0x18
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:307
+  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;
+  GPIO_InitStructure.GPIO_Speed = GPIO_Speed_2MHz;
+  GPIO_Init(GPIOB, &GPIO_InitStructure);
+
+//OPEN COLLECTORS
+  GPIO_InitStructure.GPIO_Pin = GPIO_Pin_9 | GPIO_Pin_10;
+  d6:	8023      	strh	r3, [r4, #0]
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:308
+  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;
+  d8:	70e6      	strb	r6, [r4, #3]
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:309
+  GPIO_InitStructure.GPIO_Speed = GPIO_Speed_2MHz;
+  da:	70a5      	strb	r5, [r4, #2]
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:310
+  GPIO_Init(GPIOA, &GPIO_InitStructure);
+  dc:	f7ff fffe 	bl	0 <GPIO_Init>
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:313
+
+//PWM T1CH1 MOSFET2
+  GPIO_InitStructure.GPIO_Pin = GPIO_Pin_9;
+  e0:	f44f 7300 	mov.w	r3, #512	; 0x200
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:316
+  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF_PP;
+  GPIO_InitStructure.GPIO_Speed = GPIO_Speed_2MHz;
+  GPIO_Init(GPIOC, &GPIO_InitStructure);
+  e4:	4658      	mov	r0, fp
+  e6:	4621      	mov	r1, r4
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:313
+  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;
+  GPIO_InitStructure.GPIO_Speed = GPIO_Speed_2MHz;
+  GPIO_Init(GPIOA, &GPIO_InitStructure);
+
+//PWM T1CH1 MOSFET2
+  GPIO_InitStructure.GPIO_Pin = GPIO_Pin_9;
+  e8:	8023      	strh	r3, [r4, #0]
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:314
+  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF_PP;
+  ea:	f884 8003 	strb.w	r8, [r4, #3]
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:315
+  GPIO_InitStructure.GPIO_Speed = GPIO_Speed_2MHz;
+  ee:	70a5      	strb	r5, [r4, #2]
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:316
+  GPIO_Init(GPIOC, &GPIO_InitStructure);
+  f0:	f7ff fffe 	bl	0 <GPIO_Init>
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:319
+
+//PHASE CONTROL / PWMT3CH4 - MOSFET1
+  GPIO_InitStructure.GPIO_Pin = GPIO_Pin_8;
+  f4:	f44f 7380 	mov.w	r3, #256	; 0x100
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:322
+  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF_PP;
+  GPIO_InitStructure.GPIO_Speed = GPIO_Speed_2MHz;
+  GPIO_Init(GPIOA, &GPIO_InitStructure);
+  f8:	4638      	mov	r0, r7
+  fa:	4621      	mov	r1, r4
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:319
+  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF_PP;
+  GPIO_InitStructure.GPIO_Speed = GPIO_Speed_2MHz;
+  GPIO_Init(GPIOC, &GPIO_InitStructure);
+
+//PHASE CONTROL / PWMT3CH4 - MOSFET1
+  GPIO_InitStructure.GPIO_Pin = GPIO_Pin_8;
+  fc:	8023      	strh	r3, [r4, #0]
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:320
+  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF_PP;
+  fe:	f884 8003 	strb.w	r8, [r4, #3]
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:321
+  GPIO_InitStructure.GPIO_Speed = GPIO_Speed_2MHz;
+ 102:	70a5      	strb	r5, [r4, #2]
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:322
+  GPIO_Init(GPIOA, &GPIO_InitStructure);
+ 104:	f7ff fffe 	bl	0 <GPIO_Init>
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:324
+
+  GPIO_PinRemapConfig(GPIO_FullRemap_TIM3, ENABLE);
+ 108:	2101      	movs	r1, #1
+ 10a:	4825      	ldr	r0, [pc, #148]	(1a0 <GPIO_Configuration+0x1a0>)
+ 10c:	f7ff fffe 	bl	0 <GPIO_PinRemapConfig>
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:327
+
+//LCD
+  GPIO_InitStructure.GPIO_Pin = GPIO_Pin_8 | GPIO_Pin_9 | GPIO_Pin_11 | GPIO_Pin_12 | GPIO_Pin_13 | GPIO_Pin_14 | GPIO_Pin_15;
+ 110:	f64f 3300 	movw	r3, #64256	; 0xfb00
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:330
+  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;
+  GPIO_InitStructure.GPIO_Speed = GPIO_Speed_2MHz;
+  GPIO_Init(GPIOB, &GPIO_InitStructure);
+ 114:	4650      	mov	r0, sl
+ 116:	4621      	mov	r1, r4
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:327
+  GPIO_Init(GPIOA, &GPIO_InitStructure);
+
+  GPIO_PinRemapConfig(GPIO_FullRemap_TIM3, ENABLE);
+
+//LCD
+  GPIO_InitStructure.GPIO_Pin = GPIO_Pin_8 | GPIO_Pin_9 | GPIO_Pin_11 | GPIO_Pin_12 | GPIO_Pin_13 | GPIO_Pin_14 | GPIO_Pin_15;
+ 118:	8023      	strh	r3, [r4, #0]
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:328
+  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;
+ 11a:	70e6      	strb	r6, [r4, #3]
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:329
+  GPIO_InitStructure.GPIO_Speed = GPIO_Speed_2MHz;
+ 11c:	70a5      	strb	r5, [r4, #2]
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:330
+  GPIO_Init(GPIOB, &GPIO_InitStructure);
+ 11e:	f7ff fffe 	bl	0 <GPIO_Init>
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:333
+
+//KEYBOARD SELECTION
+  GPIO_InitStructure.GPIO_Pin = GPIO_Pin_10 | GPIO_Pin_11 | GPIO_Pin_12;
+ 122:	f44f 53e0 	mov.w	r3, #7168	; 0x1c00
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:335
+  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;
+  GPIO_Init(GPIOC, &GPIO_InitStructure);
+ 126:	4658      	mov	r0, fp
+ 128:	4621      	mov	r1, r4
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:333
+  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;
+  GPIO_InitStructure.GPIO_Speed = GPIO_Speed_2MHz;
+  GPIO_Init(GPIOB, &GPIO_InitStructure);
+
+//KEYBOARD SELECTION
+  GPIO_InitStructure.GPIO_Pin = GPIO_Pin_10 | GPIO_Pin_11 | GPIO_Pin_12;
+ 12a:	8023      	strh	r3, [r4, #0]
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:334
+  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;
+ 12c:	70e6      	strb	r6, [r4, #3]
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:335
+  GPIO_Init(GPIOC, &GPIO_InitStructure);
+ 12e:	f7ff fffe 	bl	0 <GPIO_Init>
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:338
+
+//RTC Clock Crystal
+  GPIO_InitStructure.GPIO_Pin = GPIO_Pin_14 | GPIO_Pin_15;
+ 132:	f24c 0300 	movw	r3, #49152	; 0xc000
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:341
+  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF_PP;
+  GPIO_InitStructure.GPIO_Speed = GPIO_Speed_2MHz;
+  GPIO_Init(GPIOC, &GPIO_InitStructure);
+ 136:	4658      	mov	r0, fp
+ 138:	4621      	mov	r1, r4
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:338
+  GPIO_InitStructure.GPIO_Pin = GPIO_Pin_10 | GPIO_Pin_11 | GPIO_Pin_12;
+  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;
+  GPIO_Init(GPIOC, &GPIO_InitStructure);
+
+//RTC Clock Crystal
+  GPIO_InitStructure.GPIO_Pin = GPIO_Pin_14 | GPIO_Pin_15;
+ 13a:	8023      	strh	r3, [r4, #0]
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:339
+  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF_PP;
+ 13c:	f884 8003 	strb.w	r8, [r4, #3]
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:340
+  GPIO_InitStructure.GPIO_Speed = GPIO_Speed_2MHz;
+ 140:	70a5      	strb	r5, [r4, #2]
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:341
+  GPIO_Init(GPIOC, &GPIO_InitStructure);
+ 142:	f7ff fffe 	bl	0 <GPIO_Init>
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:347
+
+//USART / RS485 DIR
+  GPIO_InitStructure.GPIO_Pin =  GPIO_Pin_2;
+  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;
+  GPIO_InitStructure.GPIO_Speed = GPIO_Speed_2MHz;
+  GPIO_Init(GPIOD, &GPIO_InitStructure);
+ 146:	4621      	mov	r1, r4
+ 148:	4816      	ldr	r0, [pc, #88]	(1a4 <GPIO_Configuration+0x1a4>)
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:344
+  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF_PP;
+  GPIO_InitStructure.GPIO_Speed = GPIO_Speed_2MHz;
+  GPIO_Init(GPIOC, &GPIO_InitStructure);
+
+//USART / RS485 DIR
+  GPIO_InitStructure.GPIO_Pin =  GPIO_Pin_2;
+ 14a:	f8a4 9000 	strh.w	r9, [r4]
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:345
+  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;
+ 14e:	70e6      	strb	r6, [r4, #3]
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:346
+  GPIO_InitStructure.GPIO_Speed = GPIO_Speed_2MHz;
+ 150:	70a5      	strb	r5, [r4, #2]
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:347
+  GPIO_Init(GPIOD, &GPIO_InitStructure);
+ 152:	f7ff fffe 	bl	0 <GPIO_Init>
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:349
+ 
+  GPIO_InitStructure.GPIO_Pin =  GPIO_Pin_6;
+ 156:	f04f 0340 	mov.w	r3, #64	; 0x40
+ 15a:	8023      	strh	r3, [r4, #0]
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:352
+  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF_PP;
+  GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+  GPIO_Init(GPIOB, &GPIO_InitStructure);
+ 15c:	4650      	mov	r0, sl
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:351
+  GPIO_InitStructure.GPIO_Speed = GPIO_Speed_2MHz;
+  GPIO_Init(GPIOD, &GPIO_InitStructure);
+ 
+  GPIO_InitStructure.GPIO_Pin =  GPIO_Pin_6;
+  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF_PP;
+  GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+ 15e:	f04f 0303 	mov.w	r3, #3	; 0x3
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:352
+  GPIO_Init(GPIOB, &GPIO_InitStructure);
+ 162:	4621      	mov	r1, r4
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:351
+  GPIO_InitStructure.GPIO_Speed = GPIO_Speed_2MHz;
+  GPIO_Init(GPIOD, &GPIO_InitStructure);
+ 
+  GPIO_InitStructure.GPIO_Pin =  GPIO_Pin_6;
+  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF_PP;
+  GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+ 164:	70a3      	strb	r3, [r4, #2]
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:350
+  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;
+  GPIO_InitStructure.GPIO_Speed = GPIO_Speed_2MHz;
+  GPIO_Init(GPIOD, &GPIO_InitStructure);
+ 
+  GPIO_InitStructure.GPIO_Pin =  GPIO_Pin_6;
+  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF_PP;
+ 166:	f884 8003 	strb.w	r8, [r4, #3]
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:352
+  GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+  GPIO_Init(GPIOB, &GPIO_InitStructure);
+ 16a:	f7ff fffe 	bl	0 <GPIO_Init>
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:354
+  
+  GPIO_InitStructure.GPIO_Pin =  GPIO_Pin_7;
+ 16e:	f04f 0380 	mov.w	r3, #128	; 0x80
+ 172:	8023      	strh	r3, [r4, #0]
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:357
+  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN_FLOATING;
+  GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+  GPIO_Init(GPIOB, &GPIO_InitStructure);
+ 174:	4650      	mov	r0, sl
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:356
+  GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+  GPIO_Init(GPIOB, &GPIO_InitStructure);
+  
+  GPIO_InitStructure.GPIO_Pin =  GPIO_Pin_7;
+  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN_FLOATING;
+  GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+ 176:	f04f 0303 	mov.w	r3, #3	; 0x3
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:357
+  GPIO_Init(GPIOB, &GPIO_InitStructure);
+ 17a:	4621      	mov	r1, r4
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:355
+  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF_PP;
+  GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+  GPIO_Init(GPIOB, &GPIO_InitStructure);
+  
+  GPIO_InitStructure.GPIO_Pin =  GPIO_Pin_7;
+  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN_FLOATING;
+ 17c:	f884 9003 	strb.w	r9, [r4, #3]
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:356
+  GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+ 180:	70a3      	strb	r3, [r4, #2]
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:357
+  GPIO_Init(GPIOB, &GPIO_InitStructure);
+ 182:	f7ff fffe 	bl	0 <GPIO_Init>
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:359
+  
+  GPIO_PinRemapConfig(GPIO_Remap_USART1, ENABLE);
+ 186:	4648      	mov	r0, r9
+ 188:	2101      	movs	r1, #1
+ 18a:	f7ff fffe 	bl	0 <GPIO_PinRemapConfig>
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:361
+
+}
+ 18e:	e8bd 8ff8 	ldmia.w	sp!, {r3, r4, r5, r6, r7, r8, r9, sl, fp, pc}
+ 192:	46c0      	nop			(mov r8, r8)
+ 194:	00000000 	.word	0x00000000
+ 198:	40010800 	.word	0x40010800
+ 19c:	00300400 	.word	0x00300400
+ 1a0:	001a0c00 	.word	0x001a0c00
+ 1a4:	40011400 	.word	0x40011400
+ 1a8:	40010c00 	.word	0x40010c00
+ 1ac:	40011000 	.word	0x40011000
+Disassembly of section .text.RCC_Configuration:
+
+00000000 <RCC_Configuration>:
+RCC_Configuration():
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:157
+* Input          : None
+* Output         : None
+* Return         : None
+*******************************************************************************/
+void RCC_Configuration(void)
+{
+   0:	b510      	push	{r4, lr}
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:159
+  /* RCC system reset(for debug purpose) */
+  RCC_DeInit();
+   2:	f7ff fffe 	bl	0 <RCC_DeInit>
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:162
+
+  /* Enable HSE */
+  RCC_HSEConfig(RCC_HSE_ON);
+   6:	f44f 3080 	mov.w	r0, #65536	; 0x10000
+   a:	f7ff fffe 	bl	0 <RCC_HSEConfig>
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:165
+
+  /* Wait till HSE is ready */
+  HSEStartUpStatus = RCC_WaitForHSEStartUp();
+   e:	f7ff fffe 	bl	0 <RCC_WaitForHSEStartUp>
+  12:	4b22      	ldr	r3, [pc, #136]	(9c <RCC_Configuration+0x9c>)
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:167
+
+  if(HSEStartUpStatus == SUCCESS)
+  14:	2801      	cmp	r0, #1
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:165
+
+  /* Enable HSE */
+  RCC_HSEConfig(RCC_HSE_ON);
+
+  /* Wait till HSE is ready */
+  HSEStartUpStatus = RCC_WaitForHSEStartUp();
+  16:	4604      	mov	r4, r0
+  18:	7018      	strb	r0, [r3, #0]
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:167
+
+  if(HSEStartUpStatus == SUCCESS)
+  1a:	d128      	bne.n	6e <RCC_Configuration+0x6e>
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:170
+  {
+    /* Enable Prefetch Buffer */
+    FLASH_PrefetchBufferCmd(FLASH_PrefetchBuffer_Enable);
+  1c:	2010      	movs	r0, #16
+  1e:	f7ff fffe 	bl	0 <FLASH_PrefetchBufferCmd>
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:173
+
+    /* Flash 2 wait state */
+    FLASH_SetLatency(FLASH_Latency_2);
+  22:	2002      	movs	r0, #2
+  24:	f7ff fffe 	bl	0 <FLASH_SetLatency>
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:176
+  
+    /* HCLK = SYSCLK */
+    RCC_HCLKConfig(RCC_SYSCLK_Div1); 
+  28:	2000      	movs	r0, #0
+  2a:	f7ff fffe 	bl	0 <RCC_HCLKConfig>
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:179
+  
+    /* PCLK2 = HCLK */
+    RCC_PCLK2Config(RCC_HCLK_Div1); 
+  2e:	2000      	movs	r0, #0
+  30:	f7ff fffe 	bl	0 <RCC_PCLK2Config>
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:182
+
+    /* PCLK1 = HCLK/2 */
+    RCC_PCLK1Config(RCC_HCLK_Div2);
+  34:	f44f 6080 	mov.w	r0, #1024	; 0x400
+  38:	f7ff fffe 	bl	0 <RCC_PCLK1Config>
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:185
+
+    /* ADCCLK = PCLK2/4 */
+    RCC_ADCCLKConfig(RCC_PCLK2_Div4); 
+  3c:	f44f 4080 	mov.w	r0, #16384	; 0x4000
+  40:	f7ff fffe 	bl	0 <RCC_ADCCLKConfig>
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:188
+  
+    /* PLLCLK = 8MHz * 9 = 72 MHz */
+    RCC_PLLConfig(RCC_PLLSource_HSE_Div1, RCC_PLLMul_9);
+  44:	f44f 3080 	mov.w	r0, #65536	; 0x10000
+  48:	f44f 11e0 	mov.w	r1, #1835008	; 0x1c0000
+  4c:	f7ff fffe 	bl	0 <RCC_PLLConfig>
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:191
+
+    /* Enable PLL */ 
+    RCC_PLLCmd(ENABLE);
+  50:	4620      	mov	r0, r4
+  52:	f7ff fffe 	bl	0 <RCC_PLLCmd>
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:194
+
+    /* Wait till PLL is ready */
+    while(RCC_GetFlagStatus(RCC_FLAG_PLLRDY) == RESET)
+  56:	2039      	movs	r0, #57
+  58:	f7ff fffe 	bl	0 <RCC_GetFlagStatus>
+  5c:	2800      	cmp	r0, #0
+  5e:	d0fa      	beq.n	56 <RCC_Configuration+0x56>
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:199
+    {
+    }
+
+    /* Select PLL as system clock source */
+    RCC_SYSCLKConfig(RCC_SYSCLKSource_PLLCLK);
+  60:	2002      	movs	r0, #2
+  62:	f7ff fffe 	bl	0 <RCC_SYSCLKConfig>
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:202
+
+    /* Wait till PLL is used as system clock source */
+    while(RCC_GetSYSCLKSource() != 0x08)
+  66:	f7ff fffe 	bl	0 <RCC_GetSYSCLKSource>
+  6a:	2808      	cmp	r0, #8
+  6c:	d1fb      	bne.n	66 <RCC_Configuration+0x66>
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:208
+    {
+    }
+  }
+
+/* Enable peripheral clocks --------------------------------------------------*/
+  RCC_AHBPeriphClockCmd(RCC_AHBPeriph_DMA1, ENABLE);
+  6e:	2001      	movs	r0, #1
+  70:	4601      	mov	r1, r0
+  72:	f7ff fffe 	bl	0 <RCC_AHBPeriphClockCmd>
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:210
+
+  RCC_APB2PeriphClockCmd(
+  76:	2101      	movs	r1, #1
+  78:	f645 203d 	movw	r0, #23101	; 0x5a3d
+  7c:	f7ff fffe 	bl	0 <RCC_APB2PeriphClockCmd>
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:221
+                         RCC_APB2Periph_SPI1   |
+                         RCC_APB2Periph_AFIO   |
+                         RCC_APB2Periph_USART1 |
+                         RCC_APB2Periph_ADC1, ENABLE);
+
+  RCC_APB1PeriphClockCmd(RCC_APB1Periph_PWR | 
+  80:	2101      	movs	r1, #1
+  82:	4807      	ldr	r0, [pc, #28]	(a0 <RCC_Configuration+0xa0>)
+  84:	f7ff fffe 	bl	0 <RCC_APB1PeriphClockCmd>
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:228
+                         RCC_APB1Periph_WWDG   |
+                         RCC_APB1Periph_TIM2   |
+                         RCC_APB1Periph_TIM3, ENABLE );
+
+   /* Allow access to BKP Domain */
+    PWR_BackupAccessCmd(ENABLE);
+  88:	2001      	movs	r0, #1
+  8a:	f7ff fffe 	bl	0 <PWR_BackupAccessCmd>
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:231
+
+    /* Read data from backup registers to clock structure */
+    Read_Date ( &Date );
+  8e:	4805      	ldr	r0, [pc, #20]	(18 <Read_Date+0x18>)
+  90:	f7ff fffe 	bl	0 <Read_Date>
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:237
+
+    /* update date time if RTC counter is above */
+ //   Set_Start_Date ( &Date );
+
+    /* read time from counter */
+    Read_Time ( &Time );
+  94:	4804      	ldr	r0, [pc, #16]	(14 <Read_Time+0x14>)
+  96:	f7ff fffe 	bl	0 <Read_Time>
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:239
+
+}
+  9a:	bd10      	pop	{r4, pc}
+  9c:	00000000 	.word	0x00000000
+  a0:	18000803 	.word	0x18000803
+	...
+Disassembly of section .text.Hardware_Init:
+
+00000000 <Hardware_Init>:
+Hardware_Init():
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:105
+* Input          : None
+* Output         : None
+* Return         : None
+*******************************************************************************/
+void Hardware_Init( void )
+{
+   0:	b510      	push	{r4, lr}
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:107
+    /* System clocks configuration ---------------------------------------------*/
+    RCC_Configuration();
+   2:	f7ff fffe 	bl	0 <Hardware_Init>
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:110
+
+    /* NVIC configuration ------------------------------------------------------*/
+    NVIC_Configuration();
+   6:	f7ff fffe 	bl	0 <Hardware_Init>
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:113
+
+    /* Init FLASH --------------------------------------------------------------*/
+    FLASH_Init();
+   a:	f7ff fffe 	bl	0 <Hardware_Init>
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:116
+
+    /* GPIO configuration ------------------------------------------------------*/
+    GPIO_Configuration();
+   e:	f7ff fffe 	bl	0 <Hardware_Init>
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:119
+
+    /* EXTI configuration ------------------------------------------------------*/
+    EXTI_Configuration();
+  12:	f7ff fffe 	bl	0 <Hardware_Init>
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:122
+ 
+    /* Timers initializatoin */
+    Tim_Coufiguration();
+  16:	f7ff fffe 	bl	0 <Hardware_Init>
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:125
+
+    /* SPI confirutation */
+    SPI_Configuration();
+  1a:	f7ff fffe 	bl	0 <Hardware_Init>
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:128
+
+    /*DMA Configuration*/
+    DMA_Configuration();
+  1e:	f7ff fffe 	bl	0 <Hardware_Init>
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:131
+
+    /*ADC Configuration*/
+    Adc_Configuration();
+  22:	f7ff fffe 	bl	0 <Hardware_Init>
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:134
+
+    /*USART configuration*/
+    USART_Configuration();
+  26:	f7ff fffe 	bl	0 <Hardware_Init>
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:137
+
+    /* SysTick clock selection */
+    SysTick_CLKSourceConfig ( SysTick_CLKSource_HCLK_Div8 );
+  2a:	f06f 0004 	mvn.w	r0, #4	; 0x4
+  2e:	f7ff fffe 	bl	0 <SysTick_CLKSourceConfig>
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:140
+
+    /* SysTick end of count event each 10ms with input clock equal to 9MHz (HCLK/8, default) */
+    SysTick_SetReload(9000);
+  32:	f242 3028 	movw	r0, #9000	; 0x2328
+  36:	f7ff fffe 	bl	0 <SysTick_SetReload>
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:143
+
+    /* Enable SysTick interrupt */
+    SysTick_ITConfig(ENABLE);
+  3a:	2001      	movs	r0, #1
+  3c:	f7ff fffe 	bl	0 <SysTick_ITConfig>
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:146
+
+    /* Enable the SysTick Counter */
+    SysTick_CounterCmd(SysTick_Counter_Enable);
+  40:	2001      	movs	r0, #1
+  42:	f7ff fffe 	bl	0 <SysTick_CounterCmd>
+C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources/hardware.c:147
+}
+  46:	bd10      	pop	{r4, pc}

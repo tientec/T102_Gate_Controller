@@ -1,0 +1,522 @@
+
+<Debug>
+	<T104_GA_V100a/>
+	<Flags>
+		<Report>
+			<Def Header="FlagReport" NbCol="8" >
+				<Col Type="PT_BOOL" Header="Check" sizeCache="18" AutoSize="0" Edit="1" Sortable="1" Icon="C:\Program Files (x86)\Raisonance\Ride\Config\Resources\check.bmp" />
+				<Col Type="PT_STRING" Header="Kind" sizeCache="DDDDDDDDDDD" AutoSize="1" Edit="0" Sortable="1" />
+				<Col Type="PT_STRING" Header="KindID" sizeCache="DD" AutoSize="1" Edit="0" Sortable="1" Visible="0" />
+				<Col Type="PT_STRING" Header="Space" sizeCache="DDDDDD" AutoSize="1" Edit="0" Sortable="1" />
+				<Col Type="PT_STRING" Header="SpaceID" sizeCache="DD" AutoSize="0" Edit="0" Sortable="0" Visible="0" />
+				<Col Type="PT_STRING" Header="Condition" sizeCache="DDDDDDDDDDDDDDDDDDDDDDDD" AutoSize="1" Edit="0" Sortable="0" />
+				<Col Type="PT_STRING" Header="Line" sizeCache="DDDDDD" AutoSize="1" Edit="0" Sortable="1" Visible="1" />
+				<Col Type="PT_STRING" Header="Path" sizeCache="DDDDDDDDDDDDDDDDDDDD" AutoSize="1" Edit="0" Sortable="1" Visible="1" />
+							
+			</Def>
+			<Rows/>
+					
+		</Report>
+			
+	</Flags>
+	<Views>
+		<View File="C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources\control.h" Line="126" focus="1" />
+		<View File="C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources\control.c" Line="157" />
+		<View File="C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources\Languages\Texts.h" Line="45" />
+		<View File="C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources\stm32f10x_it.c" Line="565" />
+		<View File="C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources\sys.h" Line="208" />
+		<View File="C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources\sys.c" Line="12" />
+		<View File="C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources\gui.c" Line="4719" />
+		<View File="C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources\gui.h" Line="226" />
+		<View File="C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources\hardware.c" Line="0" />
+		<View File="C:\tien\PROJEKTY\procesory\STM\T108_V100a\sources\hardware.h" Line="0" />
+	</Views>
+	<FindStrings>
+		<Find>Frequency1_Menory</Find>
+		<Find>Memory</Find>
+		<Find>void WG_Inputs_Closed ( void )</Find>
+		<Find>Frequency1</Find>
+		<Find>//TEST</Find>
+		<Find>TEST</Find>
+		<Find>WG_Stop_Opened_Half</Find>
+		<Find>Release_Photo_Opening</Find>
+		<Find>Menory</Find>
+		<Find>Msens1</Find>
+		<Find>Msens2_Angle</Find>
+		<Find>Serwis_023</Find>
+		<Find>fast</Find>
+		<Find>One_Wing_Gate_Type</Find>
+		<Find>Angle1_Max</Find>
+		<Find>Freqw_Inverter</Find>
+		<Find>Controlling_Variables.Ctrl_Vars.Motor_Type</Find>
+		<Find>TIMER_FLAG</Find>
+		<Find> void Keyboard</Find>
+		<Find>Motor_Type</Find>
+		<Find>Write_Settings</Find>
+		<Find>24VDC</Find>
+		<Find>One_Wing</Find>
+		<Find>Keyboard_Czujniki2</Find>
+		<Find>Sensor_Type == 1</Find>
+		<Find>void WG_Inputs_Closed_Half_Handling ( void )</Find>
+		<Find>if (  )`</Find>
+		<Find>if (  )</Find>
+		<Find>4/4</Find>
+		<Find>    if ( Inputs_Level & INPUT12 )</Find>
+		<Find>Wait_4_Gate</Find>
+		<Find>Wait_4_Gate1</Find>
+		<Find>PRE_WORNING_CLOSING</Find>
+		<Find>CLOSE_GATE_FLAG = FALSE</Find>
+		<Find>tutaj</Find>
+		<Find>WG_OPENED</Find>
+		<Find>OPEN_ON_LEVEL_14</Find>
+		<Find>Pre_Worning_Op</Find>
+		<Find>relays</Find>
+		<Find>Inputs_Closing_</Find>
+		<Find>Opening_Pre_Worning_Fun</Find>
+		<Find>Pre_Worning</Find>
+		<Find>WG_Inputs_Closed,</Find>
+		<Find>Wg_Closed_</Find>
+		<Find>Wg_Closed_Handling_Function</Find>
+		<Find>PHOTO_PRIORITY_ENABLE = FALSE</Find>
+		<Find>Wg_Inputs_Closed_Handling</Find>
+		<Find>Wg_Alerts_Opening_Release</Find>
+		<Find>Wg_Opening_Alerts_Release</Find>
+		<Find>Release_Photo_Closing</Find>
+		<Find>Relays_Handling</Find>
+		<Find>relays_gandling</Find>
+		<Find>Param_Photo_Opening_Closing</Find>
+		<Find>Param_Photo_Opened</Find>
+		<Find>Param_2_Dot_Digits</Find>
+		<Find>WWDT</Find>
+		<Find>Prog</Find>
+		<Find>Inverters_prog</Find>
+		<Find>Closing_Start</Find>
+		<Find>WG_Inputs_Opened_Handling_Function(</Find>
+		<Find>alrts_release</Find>
+		<Find>closed_Handling</Find>
+		<Find>Closing_Alert</Find>
+		<Find>Lcd_Load_Buffer</Find>
+		<Find>display_on_screen</Find>
+		<Find>reload_screen</Find>
+		<Find>Closing_Start_MS</Find>
+		<Find>Op_Start_MS_Fun</Find>
+		<Find>Next[0]</Find>
+		<Find>800</Find>
+		<Find>Motor_speed</Find>
+		<Find>WG_Inputs_Opened_Handling_Function</Find>
+		<Find>WG_KEYBOARD_OPENED</Find>
+		<Find>START_CLOSING</Find>
+		<Find>Param_Braking_Angle</Find>
+		<Find>Predk_Ham</Find>
+		<Find>N/S</Find>
+		<Find>S/N:</Find>
+		<Find>braking speed</Find>
+		<Find>Braking_speed</Find>
+		<Find>Powerr_On_Fun</Find>
+		<Find>Angle_Cl</Find>
+		<Find>5040</Find>
+		<Find>WG_CLOSING</Find>
+		<Find>Position_Opened_1</Find>
+		<Find>motor</Find>
+		<Find>enable_motor</Find>
+		<Find>Deg</Find>
+		<Find>WG_Inputs_Opened_Half_Handling</Find>
+		<Find>OClosed</Find>
+		<Find>Position_Closed</Find>
+		<Find>Position_Closed_2</Find>
+		<Find>Speed_control</Find>
+		<Find>Power_On_Fun</Find>
+		<Find>Position_Closed_1</Find>
+		<Find>Inverters_Setting</Find>
+		<Find>motor_enable</Find>
+		<Find>as5040</Find>
+		<Find>sensor_type</Find>
+		<Find>Op.</Find>
+		<Find>Op</Find>
+		<Find>inputs control</Find>
+		<Find>LS1</Find>
+		<Find>LS1_Closed</Find>
+		<Find>WK1</Find>
+		<Find>Typ_bramy</Find>
+		<Find>gate</Find>
+		<Find>sensor</Find>
+		<Find>Speed</Find>
+		<Find>motor_control</Find>
+		<Find>Screen_czujniki1</Find>
+		<Find>Edit_Parameter_Counter</Find>
+		<Find>Inputs_Level</Find>
+		<Find>Next_Editable_Variable</Find>
+		<Find>Keyboard_Czujniki1</Find>
+		<Find>Keyboard_czujnik1</Find>
+		<Find>submenu1</Find>
+		<Find>czujniki-menu</Find>
+		<Find>KEyboard_Haslo</Find>
+		<Find>KEyboard_czujniki_menu</Find>
+		<Find>Menu_Backup_Keys_Sensors</Find>
+		<Find>Menu_Backup_Keys</Find>
+		<Find>czukniki_menu</Find>
+		<Find>Submenu_06</Find>
+		<Find>Czujniki_Menu</Find>
+		<Find>Menu_Sens_Magnetic</Find>
+		<Find>Screen_Czujniki</Find>
+		<Find>CZUJNIKI1</Find>
+		<Find>czujniki</Find>
+		<Find>manu</Find>
+		<Find>Keyboard_Czujnik</Find>
+		<Find>164</Find>
+		<Find>Menu_Sens_Megnetic</Find>
+		<Find>16.4</Find>
+		<Find>czujnik</Find>
+		<Find>czjniki</Find>
+		<Find>Keyboard_Czujniki</Find>
+		<Find>4_Dot</Find>
+		<Find>_Var_Param</Find>
+		<Find>Param_$_Digit</Find>
+		<Find>Param_$_Digits</Find>
+		<Find>Param_4Digits</Find>
+		<Find>Param_4_Dot</Find>
+		<Find>INPUT3</Find>
+		<Find>INPUTS3</Find>
+		<Find>230</Find>
+		<Find>Param_Sensor_Type</Find>
+		<Find>Limit</Find>
+		<Find>Limit_Switches</Find>
+		<Find>Enkoder2</Find>
+		<Find>In1_Fun</Find>
+		<Find>Param_In_1</Find>
+		<Find>ADC_MEASURED</Find>
+		<Find>ADC</Find>
+		<Find>TIM3</Find>
+		<Find>EXTI15</Find>
+		<Find>TIM_C</Find>
+		<Find>CRC16_CCITT</Find>
+		<Find>RS485_Comm_Err_Counter</Find>
+		<Find>UART</Find>
+		<Find>TIM</Find>
+		<Find>RCC</Find>
+		<Find>TIM2</Find>
+		<Find>EXTI1</Find>
+		<Find>DMA</Find>
+		<Find>closing_handling</Find>
+		<Find>Param_Soft</Find>
+		<Find>Time_Slow</Find>
+		<Find>frequency</Find>
+		<Find>INPUTS1</Find>
+		<Find>CL_AL_STOP</Find>
+		<Find>CL_AL_BACK</Find>
+		<Find>OP_AL_BACK</Find>
+		<Find>OP_AL_STOP</Find>
+		<Find>Unlock_Brake</Find>
+		<Find>Opening_Al_Relay</Find>
+		<Find>Alert_Stop</Find>
+		<Find>rnable</Find>
+		<Find>Op_Al_Stop_Fun</Find>
+		<Find>INV_PROGRAMMING</Find>
+		<Find>CLOSE_GATE_FLAG</Find>
+		<Find>READY_4_CLOSE</Find>
+		<Find>WG_Inputs_Colsed</Find>
+		<Find>PHOTO1</Find>
+		<Find>Photo_Opened</Find>
+		<Find>XXX</Find>
+		<Find>Soft_Start</Find>
+		<Find>Inverter</Find>
+		<Find> WG_Inputs_Closed_Handling_Function</Find>
+		<Find>WG_Inputs_Closed_Handling_Function</Find>
+		<Find>WG_Stop_closed</Find>
+		<Find>WG_Stop_Release</Find>
+		<Find>Inputs_Stop_Release</Find>
+		<Find>WG_Inputs_Closed_Half_Handling</Find>
+		<Find>Time_4_Gate1</Find>
+		<Find>Inputs_handloing</Find>
+		<Find>Analog_Inputs_Fun</Find>
+		<Find>Oepned_Fun</Find>
+		<Find>Controller_Variables.Controller_Vars.Inputs_Erro</Find>
+		<Find>Inputs_Error_Mask</Find>
+		<Find>OPEN_ON_LEVEL</Find>
+		<Find>Lcd_Write_Text</Find>
+		<Find>RTC_Init</Find>
+		<Find>In16_Type</Find>
+		<Find>disable</Find>
+		<Find>Enable_Manual_Control</Find>
+		<Find>manua</Find>
+		<Find>Square</Find>
+		<Find>Iputs_Hadling</Find>
+		<Find>Lock_Init</Find>
+		<Find>Keyboard_Enable</Find>
+		<Find>STRING_MASK</Find>
+		<Find>STRING</Find>
+		<Find>alerts</Find>
+		<Find>Analog_Measure</Find>
+		<Find>Analog</Find>
+		<Find>Analog_Measurement</Find>
+		<Find>Read_Setting</Find>
+		<Find>Submenu2a</Find>
+		<Find>Czas_Ham</Find>
+		<Find>PRZEK</Find>
+		<Find>Relay</Find>
+		<Find>Inputs_On_Off</Find>
+		<Find>    Inputs_Stop();</Find>
+		<Find>wejsc</Find>
+		<Find>listwy</Find>
+		<Find>In8_Type</Find>
+		<Find>Param_Motor_Type</Find>
+		<Find>Keyboard_Ustaw_Wejsc</Find>
+		<Find>static void Keyboard_Ustaw_Wejsc ( void );</Find>
+		<Find>We</Find>
+		<Find>Inputs_reset</Find>
+		<Find>Invertser_Speed_Control</Find>
+		<Find>magnetic</Find>
+		<Find>Controlling_Variables.Ctrl_Vars.Fast_Gate_Type</Find>
+		<Find>OPEN_ON_LEVEL_1</Find>
+		<Find>Open_Time_Wait</Find>
+		<Find>WG_</Find>
+		<Find>WG_nputs</Find>
+		<Find>closed</Find>
+		<Find>keyboard_closed</Find>
+		<Find>open_close_gate</Find>
+		<Find>inpus_handling</Find>
+		<Find>Current_Counter</Find>
+		<Find>CURRENT_OVERLOAD</Find>
+		<Find>keyboard_submenu</Find>
+		<Find>keyboard_prad</Find>
+		<Find>Wg_Alerts_Closing_Handling</Find>
+		<Find>WG_OPENING_ALERTS</Find>
+		<Find>Controller_Variables</Find>
+		<Find>power_on_alerts</Find>
+		<Find>CRC16_CCIT</Find>
+		<Find>prad1</Find>
+		<Find>curret</Find>
+		<Find>Ampery</Find>
+		<Find>Screen_Prad1</Find>
+		<Find>prad</Find>
+		<Find>submenu</Find>
+		<Find>CZUJNIK1</Find>
+		<Find>Brama_Motor</Find>
+		<Find>keyboard_submenu1</Find>
+		<Find>odczyt</Find>
+		<Find>keyboard</Find>
+		<Find>Motors_Enable_Fun</Find>
+		<Find>Wg_Power_On_Wait</Find>
+		<Find>Inverters_Speed_Control</Find>
+		<Find>SLOW_ENABLE_FLAG_1 = TRUE</Find>
+		<Find>WG_Inputs_Opened_Half</Find>
+		<Find>Braking_Flag</Find>
+		<Find>Opened_half</Find>
+		<Find>Serwis_018</Find>
+		<Find>Gate_Type</Find>
+		<Find>Machine_State = STANDBY</Find>
+		<Find>inverters</Find>
+		<Find>INPUT11</Find>
+		<Find>SLOW_ENABLE_FLAG_1</Find>
+		<Find>wg_closed</Find>
+		<Find>WG_Stop_Release_Fun</Find>
+		<Find>Inputs_Level &</Find>
+		<Find>BOTH CLOSED</Find>
+		<Find>stop_release</Find>
+		<Find>Gate_Opened_Time_Wait</Find>
+		<Find>Wg_Alerts_Opening_Handling</Find>
+		<Find>WG_ALL_ALERTS</Find>
+		<Find>Controller_Variables.Controller_Vars.Inputs_Error</Find>
+		<Find>Wg_Alerts_Handling(</Find>
+		<Find>WG_Inputs_Closing </Find>
+		<Find>Fast_Gate_Type</Find>
+		<Find>Wg_Alerts_Release</Find>
+		<Find>WG_Inputs_Closed_Half</Find>
+		<Find>Controller_Variables.Controller_Vars.Status</Find>
+		<Find>Status</Find>
+		<Find>giu</Find>
+		<Find>Inverters_Connected</Find>
+		<Find>Inverters_Setting_Fun</Find>
+		<Find>Gate_Opened_Fun</Find>
+		<Find>Opened_Alerts</Find>
+		<Find>Inverters_Speed</Find>
+		<Find>`</Find>
+		<Find>start_opening</Find>
+		<Find>check</Find>
+		<Find>system_timer_check</Find>
+		<Find>system_timer</Find>
+		<Find>stand_by</Find>
+		<Find>Motors_Enable</Find>
+		<Find>Freq1</Find>
+		<Find>WG_Alerts_Closing</Find>
+		<Find>WG_Alert_Closing</Find>
+		<Find>Inputs_Alerts</Find>
+		<Find>alertsHandling</Find>
+		<Find>Alerts_Release</Find>
+		<Find>Alerts_Handling</Find>
+		<Find>Wg_Alerts_Handling</Find>
+		<Find>WG_InputsClosing</Find>
+		<Find>Opening_Start</Find>
+		<Find>input1</Find>
+		<Find>way</Find>
+		<Find>power_on_alert</Find>
+		<Find>inputs_</Find>
+		<Find>input_stop</Find>
+		<Find>submenu_2</Find>
+		<Find>enable</Find>
+		<Find>se1</Find>
+		<Find>SCREEN_PULSE</Find>
+		<Find>yart</Find>
+		<Find>ysart</Find>
+		<Find>Keyboard_Odczyt_Serwisowy</Find>
+		<Find>keyboard_podglad</Find>
+		<Find>podglad</Find>
+		<Find>Freq</Find>
+		<Find>soft</Find>
+		<Find>czas</Find>
+		<Find>odczyt_serwisowy1</Find>
+		<Find>timer</Find>
+		<Find>Inputs_Level_Test</Find>
+		<Find>giu( void )</Find>
+		<Find>zerowanie</Find>
+		<Find>zeroj</Find>
+		<Find>zeruj</Find>
+		<Find>after</Find>
+		<Find>keyboard_parameters</Find>
+		<Find>keyboard_functons</Find>
+		<Find>factory</Find>
+		<Find>restore</Find>
+		<Find>licencja</Find>
+		<Find>menu</Find>
+		<Find>moze</Find>
+		<Find>measure</Find>
+		<Find>keyboard_handling</Find>
+		<Find>Controlling_Variables</Find>
+		<Find>controling_variables</Find>
+		<Find>Gate_Opened_Wait</Find>
+		<Find>WG_Inputs_Opened</Find>
+		<Find>keyboard_jezyk</Find>
+		<Find>submenu3</Find>
+		<Find>Keyboard_Param_Sterowania</Find>
+		<Find>Keyboard_Service</Find>
+		<Find>keyboard_sennings</Find>
+		<Find>opened_time</Find>
+		<Find>submenu2</Find>
+		<Find>Screen_Submenu3</Find>
+		<Find>Submenu4</Find>
+		<Find>Open_Time</Find>
+		<Find>Screen_Submenu2</Find>
+		<Find>Screen_Submenu_3</Find>
+		<Find>Keyboard_Submenu2</Find>
+		<Find>keyboard_menu</Find>
+		<Find>Screen_Number = Odczyt</Find>
+		<Find>odczyt_serwisowy2</Find>
+		<Find>Screen_Number = STANDBY</Find>
+		<Find>gpio_init</Find>
+		<Find>USART_Configuration</Find>
+		<Find>RS485_Send</Find>
+		<Find>rs485</Find>
+		<Find>usart</Find>
+		<Find>send</Find>
+		<Find>master</Find>
+		<Find>slave</Find>
+		<Find>WG_Opening_Fun</Find>
+		<Find>error</Find>
+		<Find>gui</Find>
+		<Find>read_settings</Find>
+		<Find>gui_Init</Find>
+		<Find>MANUAL_TEST</Find>
+		<Find>WG_Opening</Find>
+		<Find>Wg_Stop_Releas</Find>
+		<Find>opened</Find>
+		<Find>opening</Find>
+		<Find>Wg_Power_On_Alerts_Release</Find>
+		<Find>WG_ALERTS</Find>
+		<Find>Wg_Power_On_Closing</Find>
+		<Find>WG_Inputs</Find>
+		<Find>WG_Power_On_Fun</Find>
+		<Find>Reset_Inputs</Find>
+		<Find>Wg_Power_On_Alerts</Find>
+		<Find>wg_power_on</Find>
+		<Find>reset</Find>
+		<Find>wg_inputs_closing</Find>
+		<Find>inputs_opened</Find>
+		<Find>opwer_on</Find>
+		<Find>power_o</Find>
+		<Find>power_on</Find>
+		<Find>wg_inputs_opening</Find>
+		<Find>inputs_error</Find>
+		<Find>inputs_stop</Find>
+		<Find>closed_half</Find>
+		<Find>WG_Inputs_Closed</Find>
+		<Find>WG_Closing_Fun</Find>
+		<Find>Input_Closed</Find>
+		<Find>sys_init</Find>
+		<Find>inputs_handling</Find>
+		<Find>stop</Find>
+		<Find>sys_sys</Find>
+		<Find>GPIO_Configuration</Find>
+		<Find>gpio</Find>
+		<Find>gpio_confguration</Find>
+		<Find>Input_Output_Test</Find>
+		<Find>manual</Find>
+		<Find>Set_Start</Find>
+		<Find>internal_fan</Find>
+		<Find>ResBits</Find>
+		<Find>Res</Find>
+		<Find>Keyboard_Inputs_Select_Counter</Find>
+		<Find>rcc_</Find>
+		<Find>hardware_init</Find>
+		<Find>Tab</Find>
+		<Find>polish</Find>
+		<Find>oUTPUTS_oPENING</Find>
+		<Find>Power_On_Closing_Fun</Find>
+		<Find>inputs</Find>
+		<Find>counter</Find>
+		<Find>offset</Find>
+		<Find>nvic</Find>
+		<Find>inputs_power</Find>
+		<Find>inputs_closing</Find>
+		<Find>power_on_closing</Find>
+		<Find>Inputs_Power_On</Find>
+		<Find>release</Find>
+		<Find>Cl_Photo_Fun</Find>
+		<Find>Opening_Relay</Find>
+		<Find>closed_half_fun</Find>
+		<Find>inputs_closed</Find>
+		<Find>alert_release</Find>
+		<Find>closing_fun</Find>
+		<Find>inputs_opening</Find>
+		<Find>standby</Find>
+		<Find>pilot</Find>
+		<Find>inputs_standby</Find>
+		<Find>static</Find>
+		<Find>ALERT</Find>
+		<Find>init</Find>
+		<Find>Learm_Closed_Fun</Find>
+		<Find>opened_fun</Find>
+		<Find>laerm_opened</Find>
+		<Find>drogi</Find>
+		<Find>wait_4_learn</Find>
+		<Find>Learm_Standby_Fun</Find>
+		<Find>Learm_Opened_Fun</Find>
+		<Find>standby_fun</Find>
+		<Find>learn_standby_fun</Find>
+		<Find>handling</Find>
+		<Find>alern_handling</Find>
+		<Find>alert_handling</Find>
+		<Find>openinig_fun</Find>
+		<Find>learn_opening</Find>
+		<Find>learn_openinig</Find>
+		<Find>exti</Find>
+		<Find>inputs_alert</Find>
+		<Find>opening_fun</Find>
+		<Find>Learn_Opening_Fun</Find>
+		<Find> Alert_Handling_Fun</Find>
+		<Find>stop_fun</Find>
+		<Find>wait_4_</Find>
+		<Find>Gui (</Find>
+		<Find>Stop_Release_Fun</Find>
+		<Find> Analog_</Find>
+		<Find>analog_measurements</Find>
+		<Find>Alert_Handling_Fun</Find>
+		<Find>Powe_On</Find>
+		<Find>Input_Power_On</Find>
+		<Find>alert_release_fun</Find>
+		<Find>Wait_4_Learn_Fun</Find>
+		<Find>next</Find>
+		<Find>						next]0\</Find>						</Find>
+	</FindStrings>
+	<ReplaceStrings/>
+																																																																																																																																																																																																																																			
+</Debug>
